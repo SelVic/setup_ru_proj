@@ -1,14 +1,15 @@
 import React, {useEffect, useState, Fragment} from "react"
-import {DataTable} from "./Table";
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
-import IconButton from '@material-ui/core/IconButton';
-import MenuIcon from '@material-ui/icons/Menu';
 import { makeStyles } from '@material-ui/core/styles';
-import SupervisorAccountIcon from '@material-ui/icons/SupervisorAccount';
+import InputLabel from '@material-ui/core/InputLabel';
+import MenuItem from '@material-ui/core/MenuItem';
+import Select from '@material-ui/core/Select';
+import FormControl from '@material-ui/core/FormControl';
+import {DataTable} from "./Table";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -16,6 +17,13 @@ const useStyles = makeStyles((theme) => ({
     },
     title: {
         flexGrow: 1,
+    },
+    formControl: {
+        margin: theme.spacing(1),
+        minWidth: 120,
+    },
+    selectEmpty: {
+        marginTop: theme.spacing(2),
     },
 }));
 
@@ -26,7 +34,7 @@ const SpaComponent = () => {
     //инициализация всех полей
     const [email, updateEmail] = useState("");
     const [password, updatePassword] = useState("");
-    const [phone, updatePhone] = useState (0);
+    const [phone, updatePhone] = useState ("");
     const [firstName, updateFirstName] = useState("");
     const [lastName, updateLastName] = useState("");
     const [patronymic, updatePatronymic] = useState("");
@@ -35,11 +43,9 @@ const SpaComponent = () => {
         email: "",
         password: "",
         phone: 0,
-        name: {
-            firstName: "",
-            lastName: "",
-            patronymic: ""
-        },
+        firstName: "",
+        lastName: "",
+        patronymic: "",
         status: "",
         date: "",
         dateUpd: ""
@@ -58,16 +64,44 @@ const SpaComponent = () => {
         return today
     }
 
+    /// Обновление пользователя для последующего внесения в localstorage
 
     useEffect(() => {
-        console.log(storage)
-        console.log(localStorage)
-    })
+        updateUser(prevState => ({
+            ...prevState,
+            email: email,
+            password: password,
+            phone: phone,
+            firstName: firstName,
+            lastName: lastName,
+            patronymic: patronymic,
+            status: status,
+            date: dateCount(),
+            dateUpd: dateCount()
+        }));
+    },[email, password, phone, firstName, lastName, patronymic, status])
 
-    const submitHandler = (text) => {
-        localStorage.setItem(`${text}`, JSON.stringify(user))
+
+    const submitHandler = () => {
+        localStorage.setItem(`${user.phone}`,JSON.stringify(user))
+        console.log(user)
+        resetFields()
     }
 
+    const handleSelect = (event) => {
+        updateStatus(event.target.value);
+    }
+
+
+    const resetFields = () => {
+        updateEmail("");
+        updateStatus("");
+        updatePatronymic("");
+        updateLastName("");
+        updateFirstName("");
+        updatePassword("");
+        updatePhone("");
+    }
 
     return(
         <Fragment>
@@ -80,41 +114,58 @@ const SpaComponent = () => {
                     </Toolbar>
                 </AppBar>
             </div>
+            <div className="mt-20">
+                <Typography variant="body1" className={classes.title} align="center">
+                    Добавить нового пользователя
+                </Typography>
+            </div>
             <div className="mt-30">
                 <form className="input-container">
                     <div className="ml-20">
-                        <TextField label="Наименование" type="text" value = {email} onChange={e => updateEmail(e.currentTarget.value)} />
+                        <TextField label="Электронная почта" type="email" value = {email} onChange={e => updateEmail(e.currentTarget.value)} />
                     </div>
                     <div className="ml-20">
-                        <TextField label="Наименование" type="text" value = {email} onChange={e => updateEmail(e.currentTarget.value)} />
+                        <TextField label="Пароль" type="text" value = {password} onChange={e => updatePassword(e.currentTarget.value)} />
                     </div>
                     <div className="ml-20">
-                        <TextField label="Наименование" type="text" value = {email} onChange={e => updateEmail(e.currentTarget.value)} />
+                        <TextField label="Номер телефона" type="tel" value = {phone} onChange={e => updatePhone(e.currentTarget.value)} />
                     </div>
                     <div className="ml-20">
-                        <TextField label="Наименование" type="text" value = {email} onChange={e => updateEmail(e.currentTarget.value)} />
+                        <TextField label="Имя" type="text" value = {firstName} onChange={e => updateFirstName(e.currentTarget.value)} />
                     </div>
                     <div className="ml-20">
-                        <TextField label="Наименование" type="text" value = {email} onChange={e => updateEmail(e.currentTarget.value)} />
+                        <TextField label="Фамилия" type="text" value = {lastName} onChange={e => updateLastName(e.currentTarget.value)} />
                     </div>
                     <div className="ml-20">
-                        <TextField label="Наименование" type="text" value = {email} onChange={e => updateEmail(e.currentTarget.value)} />
+                        <TextField label="Отчество" type="text" value = {patronymic} onChange={e => updatePatronymic(e.currentTarget.value)} />
                     </div>
                     <div className="ml-20">
-                        <TextField label="Наименование" type="text" value = {email} onChange={e => updateEmail(e.currentTarget.value)} />
+                        <FormControl className={classes.formControl}>
+                            <InputLabel id="demo-simple-select-label">Статус</InputLabel>
+                            <Select
+                                labelId="demo-simple-select-label"
+                                id="demo-simple-select"
+                                value={status}
+                                onChange={handleSelect}
+                            >
+                                <MenuItem value="Admin">Admin</MenuItem>
+                                <MenuItem value="Client">Client</MenuItem>
+                                <MenuItem value="Partner">Partner</MenuItem>
+                            </Select>
+                        </FormControl>
                     </div>
                 </form>
-                <div className = "mt-40">
-                    <a className="ml-80">
-                        <Button variant="contained" onClick={() => {submitHandler(text)}}>Отправить</Button>
+                <div className="button-container mt-50">
+                    <a className="mt-20">
+                        <Button variant="contained" onClick={() => {submitHandler()}}>Отправить</Button>
                     </a>
-                    <a className="ml-70">
+                    <a className="mt-20 ml-30">
                         <Button variant="contained" onClick={() => {localStorage.clear()}}>Очистить хранилище</Button>
                     </a>
                 </div>
                 <div>
                     {
-                        storage.map((item, i) => <li key = {i} item={item}>{JSON.parse(item).name}</li>)
+                        storage.map((item, i) => <li key = {i} item={item}>{JSON.parse(item).firstName}</li>)
                     }
                 </div>
             </div>

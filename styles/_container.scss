@@ -8,5 +8,10 @@
 }
 
 .button-container{
-
+  max-width: 700px;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: center;
+  margin: auto;
 }
