@@ -2,14 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="adfe7e78-4a91-463e-9f73-6295003bc376" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/script.js" beforeDir="false" afterPath="$PROJECT_DIR$/build/script.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/script.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/build/script.js.map" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/build/styles.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/styles.css.map" beforeDir="false" afterPath="$PROJECT_DIR$/build/styles.css.map" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/components/SpaComponent.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/SpaComponent.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/components/Table.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/Table.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/styles/_container.scss" beforeDir="false" afterPath="$PROJECT_DIR$/styles/_container.scss" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -42,6 +40,7 @@
     <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="javascript.nodejs.core.library.configured.version" value="12.16.1" />
     <property name="js.buildTools.gulp.gulp_package_dir" value="$PROJECT_DIR$/node_modules/gulp" />
@@ -115,7 +114,7 @@
       <option name="presentableId" value="Default" />
       <updated>1607086463991</updated>
       <workItem from="1607086465854" duration="7085000" />
-      <workItem from="1607175598534" duration="11466000" />
+      <workItem from="1607175598534" duration="18327000" />
     </task>
     <servers />
   </component>
@@ -127,21 +126,21 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="740" y="273" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1607177013256" />
-    <state width="1898" height="277" key="GridCell.Tab.0.bottom" timestamp="1607185843774">
+    <state width="1898" height="277" key="GridCell.Tab.0.bottom" timestamp="1607202271737">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1898" height="277" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1607185843774" />
-    <state width="1898" height="277" key="GridCell.Tab.0.center" timestamp="1607185843774">
+    <state width="1898" height="277" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1607202271737" />
+    <state width="1898" height="277" key="GridCell.Tab.0.center" timestamp="1607202271737">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1898" height="277" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1607185843774" />
-    <state width="1898" height="277" key="GridCell.Tab.0.left" timestamp="1607185843774">
+    <state width="1898" height="277" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1607202271737" />
+    <state width="1898" height="277" key="GridCell.Tab.0.left" timestamp="1607202271737">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1898" height="277" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1607185843774" />
-    <state width="1898" height="277" key="GridCell.Tab.0.right" timestamp="1607185843774">
+    <state width="1898" height="277" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1607202271737" />
+    <state width="1898" height="277" key="GridCell.Tab.0.right" timestamp="1607202271737">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1898" height="277" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1607185843774" />
+    <state width="1898" height="277" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1607202271737" />
   </component>
 </project>

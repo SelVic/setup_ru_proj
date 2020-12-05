@@ -80,11 +80,14 @@ const SpaComponent = () => {
     },[email, password, phone, firstName, lastName, patronymic, status])
 
 
+
+    //Функция для валидации эмейла
     const validateEmail = (email) => {
         const regularEmail = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
         return regularEmail.test(String(email).toLowerCase());
     }
 
+    //Функция для валидации номера телефона
     const validatePhone = (phone) => {
         const regularPhone = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im;
         return regularPhone.test(phone)
@@ -95,6 +98,7 @@ const SpaComponent = () => {
         updateStorage(Object.values(localStorage))
     }
 
+    //Отправка данных и валидация введеных данных
 
     const submitHandler = () => {
         if((email || password || phone || firstName || lastName || patronymic || status)== "")
@@ -106,8 +110,12 @@ const SpaComponent = () => {
         else if( validateEmail(email) === false)
             {alert("Неверно введен e-mail")
                 updateStorage(Object.values(localStorage))}
-        else{
-            localStorage.setItem(`${user.phone}`,JSON.stringify(user))
+        else if (storage.some(user => (JSON.parse(user).email == email) || (JSON.parse(user).phone == phone)))
+            {alert("Пользователь с таким номером телефона или email уже есть в базе")
+                updateStorage(Object.values(localStorage))}
+        else
+        {
+            localStorage.setItem(`${user.phone}`, JSON.stringify(user))
             resetFields()
             updateStorage(Object.values(localStorage))
         }
@@ -156,10 +164,10 @@ const SpaComponent = () => {
                         <TextField label="Номер телефона" type="tel" value = {phone} onChange={e => updatePhone(e.currentTarget.value)} />
                     </div>
                     <div className="ml-20">
-                        <TextField label="Имя" type="text" value = {firstName} onChange={e => updateFirstName(e.currentTarget.value)} />
+                        <TextField label="Фамилия" type="text" value = {lastName} onChange={e => updateLastName(e.currentTarget.value)} />
                     </div>
                     <div className="ml-20">
-                        <TextField label="Фамилия" type="text" value = {lastName} onChange={e => updateLastName(e.currentTarget.value)} />
+                        <TextField label="Имя" type="text" value = {firstName} onChange={e => updateFirstName(e.currentTarget.value)} />
                     </div>
                     <div className="ml-20">
                         <TextField label="Отчество" type="text" value = {patronymic} onChange={e => updatePatronymic(e.currentTarget.value)} />
@@ -185,7 +193,7 @@ const SpaComponent = () => {
                         <Button variant="contained" onClick={() => {submitHandler()}}>Отправить</Button>
                     </a>
                     <a className="mt-20 ml-30">
-                        <Button variant="contained" onClick={() => {localStorage.clear()}}>Очистить хранилище</Button>
+                        <Button variant="contained" onClick={() => {localStorage.clear(), updateStorage(Object.entries(localStorage))}}>Очистить хранилище</Button>
                     </a>
                 </div>
             </div>
