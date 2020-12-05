@@ -8,9 +8,8 @@
       <change beforePath="$PROJECT_DIR$/build/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/build/styles.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/styles.css.map" beforeDir="false" afterPath="$PROJECT_DIR$/build/styles.css.map" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/components/SpaComponent.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/SpaComponent.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/styles/_main.scss" beforeDir="false" afterPath="$PROJECT_DIR$/styles/_main.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/Table.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/Table.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/styles/_container.scss" beforeDir="false" afterPath="$PROJECT_DIR$/styles/_container.scss" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -56,7 +55,7 @@
       <recent name="C:\Users\User\WebstormProjects\setup_ru_proj" />
     </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Gulp.js.watch">
     <configuration default="true" type="js.build_tools.gulp">
       <node-interpreter>project</node-interpreter>
       <node-options />
@@ -99,9 +98,9 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="npm.build" />
-        <item itemvalue="npm.start" />
         <item itemvalue="Gulp.js.watch" />
+        <item itemvalue="npm.start" />
+        <item itemvalue="npm.build" />
       </list>
     </recent_temporary>
   </component>
@@ -116,6 +115,7 @@
       <option name="presentableId" value="Default" />
       <updated>1607086463991</updated>
       <workItem from="1607086465854" duration="7085000" />
+      <workItem from="1607175598534" duration="11466000" />
     </task>
     <servers />
   </component>
@@ -123,25 +123,25 @@
     <option name="version" value="1" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="740" y="273" key="FileChooserDialogImpl" timestamp="1607089773859">
+    <state x="740" y="273" key="FileChooserDialogImpl" timestamp="1607177013256">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="740" y="273" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1607089773859" />
-    <state width="1898" height="277" key="GridCell.Tab.0.bottom" timestamp="1607091810336">
+    <state x="740" y="273" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1607177013256" />
+    <state width="1898" height="277" key="GridCell.Tab.0.bottom" timestamp="1607185843774">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1898" height="277" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1607091810336" />
-    <state width="1898" height="277" key="GridCell.Tab.0.center" timestamp="1607091810336">
+    <state width="1898" height="277" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1607185843774" />
+    <state width="1898" height="277" key="GridCell.Tab.0.center" timestamp="1607185843774">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1898" height="277" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1607091810336" />
-    <state width="1898" height="277" key="GridCell.Tab.0.left" timestamp="1607091810335">
+    <state width="1898" height="277" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1607185843774" />
+    <state width="1898" height="277" key="GridCell.Tab.0.left" timestamp="1607185843774">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1898" height="277" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1607091810335" />
-    <state width="1898" height="277" key="GridCell.Tab.0.right" timestamp="1607091810336">
+    <state width="1898" height="277" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1607185843774" />
+    <state width="1898" height="277" key="GridCell.Tab.0.right" timestamp="1607185843774">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1898" height="277" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1607091810336" />
+    <state width="1898" height="277" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1607185843774" />
   </component>
 </project>

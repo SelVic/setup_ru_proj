@@ -29,9 +29,10 @@ const useStyles = makeStyles((theme) => ({
 
 const SpaComponent = () => {
 
-    const classes = useStyles();
-
     //инициализация всех полей
+
+    const classes = useStyles();
+    const [storage, updateStorage] = useState(Object.values(localStorage))
     const [email, updateEmail] = useState("");
     const [password, updatePassword] = useState("");
     const [phone, updatePhone] = useState ("");
@@ -51,20 +52,17 @@ const SpaComponent = () => {
         dateUpd: ""
     })
 
-    let storage = Object.values(localStorage)
-
-    //счетчик для текущей даты
     const dateCount = () => {
         let today = new Date();
         let dd = String(today.getDate()).padStart(2, '0');
         let mm = String(today.getMonth() + 1).padStart(2, '0');
         let yyyy = today.getFullYear();
 
+
         today = mm + '/' + dd + '/' + yyyy;
         return today
     }
 
-    /// Обновление пользователя для последующего внесения в localstorage
 
     useEffect(() => {
         updateUser(prevState => ({
@@ -82,10 +80,37 @@ const SpaComponent = () => {
     },[email, password, phone, firstName, lastName, patronymic, status])
 
 
+    const validateEmail = (email) => {
+        const regularEmail = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        return regularEmail.test(String(email).toLowerCase());
+    }
+
+    const validatePhone = (phone) => {
+        const regularPhone = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im;
+        return regularPhone.test(phone)
+    }
+
+
+    const handleFetch = () => {
+        updateStorage(Object.values(localStorage))
+    }
+
+
     const submitHandler = () => {
-        localStorage.setItem(`${user.phone}`,JSON.stringify(user))
-        console.log(user)
-        resetFields()
+        if((email || password || phone || firstName || lastName || patronymic || status)== "")
+            {alert("Заполните все поля!")
+                updateStorage(Object.values(localStorage))}
+        else if (validatePhone(phone) === false)
+            {alert("Неверное введен номер телефона")
+                updateStorage(Object.values(localStorage))}
+        else if( validateEmail(email) === false)
+            {alert("Неверно введен e-mail")
+                updateStorage(Object.values(localStorage))}
+        else{
+            localStorage.setItem(`${user.phone}`,JSON.stringify(user))
+            resetFields()
+            updateStorage(Object.values(localStorage))
+        }
     }
 
     const handleSelect = (event) => {
@@ -155,7 +180,7 @@ const SpaComponent = () => {
                         </FormControl>
                     </div>
                 </form>
-                <div className="button-container mt-50">
+                <div className="input-container mt-50">
                     <a className="mt-20">
                         <Button variant="contained" onClick={() => {submitHandler()}}>Отправить</Button>
                     </a>
@@ -163,11 +188,9 @@ const SpaComponent = () => {
                         <Button variant="contained" onClick={() => {localStorage.clear()}}>Очистить хранилище</Button>
                     </a>
                 </div>
-                <div>
-                    {
-                        storage.map((item, i) => <li key = {i} item={item}>{JSON.parse(item).firstName}</li>)
-                    }
-                </div>
+            </div>
+            <div className="mt-50">
+                <DataTable storage={storage} handleFetch={handleFetch}/>
             </div>
         </Fragment>
     )
