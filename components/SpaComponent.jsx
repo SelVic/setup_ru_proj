@@ -107,28 +107,28 @@ const SpaComponent = () => {
 
 
     const handleFetch = () => {
-        updateStorage(Object.values(localStorage))
+        updateFiltered(Object.values(localStorage))
     }
 
-    //Отправка данных и валидация введеных данных
+    //Отправка и валидация введеных данных
     const submitHandler = () => {
         if((email || password || phone || firstName || lastName || patronymic || status)== "")
             {alert("Заполните все поля!")
-                updateStorage(Object.values(localStorage))}
+                updateFiltered(Object.values(localStorage))}
         else if (validatePhone(phone) === false)
             {alert("Неверное введен номер телефона")
-                updateStorage(Object.values(localStorage))}
+                updateFiltered(Object.values(localStorage))}
         else if( validateEmail(email) === false)
             {alert("Неверно введен e-mail")
-                updateStorage(Object.values(localStorage))}
+                updateFiltered(Object.values(localStorage))}
         else if (storage.some(user => (JSON.parse(user).email == email) || (JSON.parse(user).phone == phone)))
             {alert("Пользователь с таким номером телефона или email уже есть в базе")
-                updateStorage(Object.values(localStorage))}
+                updateFiltered(Object.values(localStorage))}
         else
         {
             localStorage.setItem(`${user.uniqueId}`, JSON.stringify(user))
             resetFields()
-            updateStorage(Object.values(localStorage))
+            updateFiltered(Object.values(localStorage))
         }
     }
 
@@ -138,7 +138,31 @@ const SpaComponent = () => {
 
     const handleStatusFilter = (event) => {
         updateStatusFilter(event.target.value);
+        // if (statusFilter == "All")
+        // {
+        //     let result = storage.filter(user => (JSON.parse(user).phone.includes(searchItem)) || (JSON.parse(user).email.toLowerCase().includes(searchItem)))
+        //     updateFiltered(result);
+        // }
+        // else
+        // {
+        //     let result = storage.filter(user => (JSON.parse(user).phone.includes(searchItem)) || (JSON.parse(user).email.toLowerCase().includes(searchItem)) && JSON.parse(user).status == statusFilter)
+        //     updateFiltered(result)
+        // }
     }
+
+    // useEffect(() => {
+    //     if (statusFilter == "All")
+    //     {
+    //         let result = storage.filter(user => (JSON.parse(user).phone.includes(searchItem)) || (JSON.parse(user).email.toLowerCase().includes(searchItem)))
+    //         updateFiltered(result);
+    //     }
+    //     else
+    //     {
+    //         let result = storage.filter(user => (JSON.parse(user).phone.includes(searchItem)) || (JSON.parse(user).email.toLowerCase().includes(searchItem)) && JSON.parse(user).status == statusFilter)
+    //         updateFiltered(result)
+    //     }
+    //     console.log(statusFilter)
+    // }, [statusFilter])
 
     useEffect(() => {
         if (statusFilter == "All")
@@ -148,11 +172,11 @@ const SpaComponent = () => {
         }
         else
         {
-            let result = storage.filter(user => (JSON.parse(user).phone.includes(searchItem)) || (JSON.parse(user).email.toLowerCase().includes(searchItem)) && JSON.parse(user).status == statusFilter)
+            let result = storage.filter(user => ((JSON.parse(user).phone.includes(searchItem)) || (JSON.parse(user).email.toLowerCase().includes(searchItem))) && JSON.parse(user).status == statusFilter)
             updateFiltered(result)
         }
-
-    }, [text])
+        console.log(statusFilter)
+    }, [text, statusFilter])
 
     const resetFields = () => {
         updateEmail("");
@@ -216,7 +240,7 @@ const SpaComponent = () => {
                         <Button variant="contained" onClick={() => {submitHandler()}}>Отправить</Button>
                     </a>
                     <a className="mt-20 ml-30">
-                        <Button variant="contained" onClick={() => {localStorage.clear(), updateStorage(Object.entries(localStorage))}}>Очистить хранилище</Button>
+                        <Button variant="contained" onClick={() => {localStorage.clear(), updateFiltered(Object.entries(localStorage))}}>Очистить хранилище</Button>
                     </a>
                 </div>
             </div>

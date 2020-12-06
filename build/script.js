@@ -208,27 +208,27 @@ const SpaComponent = () => {
   };
 
   const handleFetch = () => {
-    updateStorage(Object.values(localStorage));
-  }; //Отправка данных и валидация введеных данных
+    updateFiltered(Object.values(localStorage));
+  }; //Отправка и валидация введеных данных
 
 
   const submitHandler = () => {
     if ((email || password || phone || firstName || lastName || patronymic || status) == "") {
       alert("Заполните все поля!");
-      updateStorage(Object.values(localStorage));
+      updateFiltered(Object.values(localStorage));
     } else if (validatePhone(phone) === false) {
       alert("Неверное введен номер телефона");
-      updateStorage(Object.values(localStorage));
+      updateFiltered(Object.values(localStorage));
     } else if (validateEmail(email) === false) {
       alert("Неверно введен e-mail");
-      updateStorage(Object.values(localStorage));
+      updateFiltered(Object.values(localStorage));
     } else if (storage.some(user => JSON.parse(user).email == email || JSON.parse(user).phone == phone)) {
       alert("Пользователь с таким номером телефона или email уже есть в базе");
-      updateStorage(Object.values(localStorage));
+      updateFiltered(Object.values(localStorage));
     } else {
       localStorage.setItem(`${user.uniqueId}`, JSON.stringify(user));
       resetFields();
-      updateStorage(Object.values(localStorage));
+      updateFiltered(Object.values(localStorage));
     }
   };
 
@@ -237,18 +237,42 @@ const SpaComponent = () => {
   };
 
   const handleStatusFilter = event => {
-    updateStatusFilter(event.target.value);
-  };
+    updateStatusFilter(event.target.value); // if (statusFilter == "All")
+    // {
+    //     let result = storage.filter(user => (JSON.parse(user).phone.includes(searchItem)) || (JSON.parse(user).email.toLowerCase().includes(searchItem)))
+    //     updateFiltered(result);
+    // }
+    // else
+    // {
+    //     let result = storage.filter(user => (JSON.parse(user).phone.includes(searchItem)) || (JSON.parse(user).email.toLowerCase().includes(searchItem)) && JSON.parse(user).status == statusFilter)
+    //     updateFiltered(result)
+    // }
+  }; // useEffect(() => {
+  //     if (statusFilter == "All")
+  //     {
+  //         let result = storage.filter(user => (JSON.parse(user).phone.includes(searchItem)) || (JSON.parse(user).email.toLowerCase().includes(searchItem)))
+  //         updateFiltered(result);
+  //     }
+  //     else
+  //     {
+  //         let result = storage.filter(user => (JSON.parse(user).phone.includes(searchItem)) || (JSON.parse(user).email.toLowerCase().includes(searchItem)) && JSON.parse(user).status == statusFilter)
+  //         updateFiltered(result)
+  //     }
+  //     console.log(statusFilter)
+  // }, [statusFilter])
+
 
   Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(() => {
     if (statusFilter == "All") {
       let result = storage.filter(user => JSON.parse(user).phone.includes(searchItem) || JSON.parse(user).email.toLowerCase().includes(searchItem));
       updateFiltered(result);
     } else {
-      let result = storage.filter(user => JSON.parse(user).phone.includes(searchItem) || JSON.parse(user).email.toLowerCase().includes(searchItem) && JSON.parse(user).status == statusFilter);
+      let result = storage.filter(user => (JSON.parse(user).phone.includes(searchItem) || JSON.parse(user).email.toLowerCase().includes(searchItem)) && JSON.parse(user).status == statusFilter);
       updateFiltered(result);
     }
-  }, [text]);
+
+    console.log(statusFilter);
+  }, [text, statusFilter]);
 
   const resetFields = () => {
     updateEmail("");
@@ -347,7 +371,7 @@ const SpaComponent = () => {
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_Button__WEBPACK_IMPORTED_MODULE_2__["default"], {
     variant: "contained",
     onClick: () => {
-      localStorage.clear(), updateStorage(Object.entries(localStorage));
+      localStorage.clear(), updateFiltered(Object.entries(localStorage));
     }
   }, "\u041E\u0447\u0438\u0441\u0442\u0438\u0442\u044C \u0445\u0440\u0430\u043D\u0438\u043B\u0438\u0449\u0435")))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "mt-50"
