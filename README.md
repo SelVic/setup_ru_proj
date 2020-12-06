@@ -14,7 +14,7 @@ node server
 В консоли, в корневой папке:
 
 -Для изменений JavaScript: webpack --watch
--Для изменений CSS/SCC: gulp watch
+-Для изменений CSS/SCCS: gulp watch
 ```
 Приложение развернется на localhost:3000
 
