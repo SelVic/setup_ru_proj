@@ -10,7 +10,10 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
 import FormControl from '@material-ui/core/FormControl';
 import {DataTable} from "./Table";
+import ConfirmDialog from "./ConfirmDialog";
 
+
+//Стили для material-ui
 const useStyles = makeStyles((theme) => ({
     root: {
         flexGrow: 1,
@@ -36,7 +39,7 @@ const useStyles = makeStyles((theme) => ({
 const SpaComponent = () => {
 
     //инициализация всех полей
-
+    const [confirmOpen, setConfirmOpen] = useState(false)
     const classes = useStyles();
     const [storage, updateStorage] = useState(Object.values(localStorage))
     const [email, updateEmail] = useState("");
@@ -63,12 +66,12 @@ const SpaComponent = () => {
         uniqueId: ""
     })
 
+    //Счетчик для подсчета даты создания
     const dateCount = () => {
         let today = new Date();
         let dd = String(today.getDate()).padStart(2, '0');
         let mm = String(today.getMonth() + 1).padStart(2, '0');
         let yyyy = today.getFullYear();
-
 
         today = mm + '/' + dd + '/' + yyyy;
         return today
@@ -81,6 +84,7 @@ const SpaComponent = () => {
         return stringifyNum
     }
 
+    //Обновление полей добавляемого пользователя
     useEffect(() => {
         updateUser(prevState => ({
             ...prevState,
@@ -111,7 +115,7 @@ const SpaComponent = () => {
         return regularPhone.test(phone)
     }
 
-
+    //Обновление отрисованного списка
     const handleFetch = () => {
         updateFiltered(Object.values(localStorage))
     }
@@ -127,7 +131,7 @@ const SpaComponent = () => {
         else if( validateEmail(email) === false)
             {alert("Неверно введен e-mail")
                 updateFiltered(Object.values(localStorage))}
-        else if (storage.some(user => (JSON.parse(user).email == email) || (JSON.parse(user).phone == phone)))
+        else if (filtered.some(user => (JSON.parse(user).email == email) || (JSON.parse(user).phone == phone)))
             {alert("Пользователь с таким номером телефона или email уже есть в базе")
                 updateFiltered(Object.values(localStorage))}
         else
@@ -138,38 +142,17 @@ const SpaComponent = () => {
         }
     }
 
+    //Обновление статуса
     const handleSelect = (event) => {
         updateStatus(event.target.value);
     }
 
+    //Обновление фильтра по статусу
     const handleStatusFilter = (event) => {
         updateStatusFilter(event.target.value);
-        // if (statusFilter == "All")
-        // {
-        //     let result = storage.filter(user => (JSON.parse(user).phone.includes(searchItem)) || (JSON.parse(user).email.toLowerCase().includes(searchItem)))
-        //     updateFiltered(result);
-        // }
-        // else
-        // {
-        //     let result = storage.filter(user => (JSON.parse(user).phone.includes(searchItem)) || (JSON.parse(user).email.toLowerCase().includes(searchItem)) && JSON.parse(user).status == statusFilter)
-        //     updateFiltered(result)
-        // }
     }
 
-    // useEffect(() => {
-    //     if (statusFilter == "All")
-    //     {
-    //         let result = storage.filter(user => (JSON.parse(user).phone.includes(searchItem)) || (JSON.parse(user).email.toLowerCase().includes(searchItem)))
-    //         updateFiltered(result);
-    //     }
-    //     else
-    //     {
-    //         let result = storage.filter(user => (JSON.parse(user).phone.includes(searchItem)) || (JSON.parse(user).email.toLowerCase().includes(searchItem)) && JSON.parse(user).status == statusFilter)
-    //         updateFiltered(result)
-    //     }
-    //     console.log(statusFilter)
-    // }, [statusFilter])
-
+    //Поиск по телефону / эмейлу
     useEffect(() => {
         if (statusFilter == "All")
         {
@@ -183,6 +166,7 @@ const SpaComponent = () => {
         }
     }, [text, statusFilter])
 
+    //Сброс всех полей после нажатия кнопки отправить
     const resetFields = () => {
         updateEmail("");
         updateStatus("");
@@ -245,7 +229,15 @@ const SpaComponent = () => {
                         <Button variant="contained" onClick={() => {submitHandler()}}>Отправить</Button>
                     </a>
                     <a className="mt-20 ml-30">
-                        <Button variant="contained" onClick={() => {localStorage.clear(), updateFiltered(Object.entries(localStorage))}}>Очистить хранилище</Button>
+                        <Button variant="contained" onClick={() => {setConfirmOpen(true)}}>Очистить хранилище</Button>
+                        <ConfirmDialog
+                            title="Очистить хранилище?"
+                            open={confirmOpen}
+                            setOpen={setConfirmOpen}
+                            onConfirm={() => {localStorage.clear(), updateFiltered(Object.entries(localStorage))}}
+                        >
+                            Вы уверены, что хотите очистить хранилище?
+                        </ConfirmDialog>
                     </a>
                 </div>
             </div>

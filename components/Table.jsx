@@ -15,18 +15,14 @@ import BuildIcon from '@material-ui/icons/Build';
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import IconButton from '@material-ui/core/IconButton';
-import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogTitle from '@material-ui/core/DialogTitle';
-import useMediaQuery from '@material-ui/core/useMediaQuery';
-import { useTheme } from '@material-ui/core/styles';
 import TextField from "@material-ui/core/TextField";
 import FormControl from "@material-ui/core/FormControl";
 import InputLabel from "@material-ui/core/InputLabel";
 import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
+import ConfirmDialog from "./ConfirmDialog";
 
-
+//Стили для material-ui
 const useStyles = makeStyles({
     root: {
         '& > *': {
@@ -48,8 +44,11 @@ const useStyles = makeStyles({
 
 
 const Row = (props) => {
+    //Инициализация стейтов для редактирования пользователя
+    const [storage, updateStorage] = useState(Object.values(localStorage))
     const { row } = props;
-    const [open, setOpen] = React.useState(false);
+    const [openItem, setOpenItem] = useState(false);
+    const [confirmOpen, setConfirmOpen] = useState(false)
     const classes = useStyles();
     const [email, updateEmail] = useState("");
     const [password, updatePassword] = useState("");
@@ -72,17 +71,18 @@ const Row = (props) => {
         dateUpd: ""
     })
 
+    //Подсчет даты последнего изменения
     const dateCount = () => {
         let today = new Date();
         let dd = String(today.getDate()).padStart(2, '0');
         let mm = String(today.getMonth() + 1).padStart(2, '0');
         let yyyy = today.getFullYear();
 
-
         today = mm + '/' + dd + '/' + yyyy;
         return today
     }
 
+    //Обновление данных для изменения пользователя
     useEffect(() => {
         updateUser(prevState => ({
             ...prevState,
@@ -99,19 +99,59 @@ const Row = (props) => {
         }));
     },[email, password, phone, firstName, lastName, patronymic, status])
 
+    //Обновление значения статуса пользователя
     const handleSelect = (event) =>{
         updateStatus(event.target.value);
     }
 
+    //Открытие подстроки таблицы для редактирования
     const openHandler = () =>{
-        setOpen(!open)
+        setOpenItem(!openItem)
     }
 
 
+    const checkSimilar = () => {
+        const result = (storage.some(item => ((JSON.parse(item).email.includes(email)) || JSON.parse(item).phone.includes(phone)) && !JSON.parse((item).includes(uniqueId))))
+        if (!result) {
+            console.log(false)
+            return false
+        }
+        else{
+            console.log(true)
+            return true
+        }
+    }
+
+
+    //Функция для валидации эмейла
+    const validateEmailChange = (email) => {
+        const regularEmail = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        return regularEmail.test(String(email).toLowerCase());
+    }
+
+    //Функция для валидации номера телефона
+    const validatePhoneChange = (phone) => {
+        const regularPhone = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im;
+        return regularPhone.test(phone)
+    }
+
+    //Обновление данных в localStorage и валидация
     const submitChangeHandler = (userId) =>{
-            localStorage.setItem(`${userId}`, JSON.stringify(user))
-            props.handleFetch()
-        console.log(user)
+        if((email || password || phone || firstName || lastName || patronymic || status)== "")
+                {alert("Заполните все поля!")}
+                else if (validatePhoneChange(phone) === false)
+                {alert("Неверное введен номер телефона")}
+                else if( validateEmailChange(email) === false)
+                {alert("Неверно введен e-mail")}
+                else if (checkSimilar())
+                {alert("Пользователь с таким номером телефона или email уже есть в базе")}
+                else
+                {
+                    localStorage.setItem(`${userId}`, JSON.stringify(user))
+                    props.handleFetch()
+                    setOpenItem(!openItem)
+                    updateStorage(Object.values(localStorage))
+                }
     }
 
     return (
@@ -121,9 +161,17 @@ const Row = (props) => {
                     <IconButton size="small" onClick={() => openHandler()}>
                         <BuildIcon/>
                     </IconButton>
-                    <IconButton size="small" onClick={() =>{localStorage.removeItem(JSON.parse(row).uniqueId), props.handleFetch()}}>
+                    <IconButton size="small" onClick={() =>{setConfirmOpen(true)}}>
                         <DeleteIcon/>
                     </IconButton>
+                    <ConfirmDialog
+                        title="Удалить пользователя?"
+                        open={confirmOpen}
+                        setOpen={setConfirmOpen}
+                        onConfirm={() => {localStorage.removeItem(JSON.parse(row).uniqueId), props.handleFetch()}}
+                    >
+                        Вы уверены, что хотите удалить этого пользователя?
+                    </ConfirmDialog>
                 </TableCell>
                 <TableCell component="th" scope="row">
                     {`${JSON.parse(row).lastName} ${JSON.parse(row).firstName} ${JSON.parse(row).patronymic}`}
@@ -137,7 +185,7 @@ const Row = (props) => {
             </TableRow>
             <TableRow>
                 <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={8}>
-                    <Collapse in={open} timeout="auto" unmountOnExit onEnter={() => {
+                    <Collapse in={openItem} timeout="auto" unmountOnExit onEnter={() => {
                             updateEmail(JSON.parse(row).email)
                             updatePassword(JSON.parse(row).password)
                             updatePhone(JSON.parse(row).phone)
@@ -222,7 +270,7 @@ const DataTable = (props) => {
                 </TableHead>
                 <TableBody>
                     {props.filtered.map((row) => (
-                        <Row key={JSON.parse(row).email} row={row} handleFetch = {props.handleFetch}/>
+                        <Row key={JSON.parse(row).uniqueId} row={row} handleFetch = {props.handleFetch} filtered={props.filtered}/>
                     ))}
                 </TableBody>
             </Table>

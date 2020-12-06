@@ -5,11 +5,8 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/script.js" beforeDir="false" afterPath="$PROJECT_DIR$/build/script.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/script.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/build/script.js.map" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/build/styles.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/styles.css.map" beforeDir="false" afterPath="$PROJECT_DIR$/build/styles.css.map" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/components/SpaComponent.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/SpaComponent.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/components/Table.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/Table.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/styles/_container.scss" beforeDir="false" afterPath="$PROJECT_DIR$/styles/_container.scss" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -56,7 +53,10 @@
       <recent name="C:\Users\User\WebstormProjects\setup_ru_proj" />
     </key>
   </component>
-  <component name="RunManager" selected="Gulp.js.watch">
+  <component name="RunManager" selected="Node.js.test.js">
+    <configuration name="test.js" type="NodeJSConfigurationType" temporary="true" nameIsGenerated="true" path-to-js-file="$PROJECT_DIR$/test.js" working-dir="$PROJECT_DIR$">
+      <method v="2" />
+    </configuration>
     <configuration default="true" type="js.build_tools.gulp">
       <node-interpreter>project</node-interpreter>
       <node-options />
@@ -99,9 +99,10 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Gulp.js.watch" />
+        <item itemvalue="Node.js.test.js" />
         <item itemvalue="npm.start" />
         <item itemvalue="npm.build" />
+        <item itemvalue="Gulp.js.watch" />
       </list>
     </recent_temporary>
   </component>
@@ -117,6 +118,7 @@
       <updated>1607086463991</updated>
       <workItem from="1607086465854" duration="7085000" />
       <workItem from="1607175598534" duration="28423000" />
+      <workItem from="1607254044327" duration="10405000" />
     </task>
     <servers />
   </component>
@@ -128,21 +130,73 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="740" y="273" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1607177013256" />
-    <state width="1898" height="277" key="GridCell.Tab.0.bottom" timestamp="1607214677707">
+    <state width="1898" height="342" key="GridCell.Tab.0.bottom" timestamp="1607260694602">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1898" height="277" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1607214677707" />
-    <state width="1898" height="277" key="GridCell.Tab.0.center" timestamp="1607214677707">
+    <state width="1898" height="342" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1607260694602" />
+    <state width="1898" height="342" key="GridCell.Tab.0.center" timestamp="1607260694602">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1898" height="277" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1607214677707" />
-    <state width="1898" height="277" key="GridCell.Tab.0.left" timestamp="1607214677706">
+    <state width="1898" height="342" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1607260694602" />
+    <state width="1898" height="342" key="GridCell.Tab.0.left" timestamp="1607260694601">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1898" height="277" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1607214677706" />
-    <state width="1898" height="277" key="GridCell.Tab.0.right" timestamp="1607214677707">
+    <state width="1898" height="342" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1607260694601" />
+    <state width="1898" height="342" key="GridCell.Tab.0.right" timestamp="1607260694602">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1898" height="277" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1607214677707" />
+    <state width="1898" height="342" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1607260694602" />
+    <state width="1898" height="342" key="GridCell.Tab.1.bottom" timestamp="1607260694602">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1898" height="342" key="GridCell.Tab.1.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1607260694602" />
+    <state width="1898" height="342" key="GridCell.Tab.1.center" timestamp="1607260694602">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1898" height="342" key="GridCell.Tab.1.center/0.0.1920.1040@0.0.1920.1040" timestamp="1607260694602" />
+    <state width="1898" height="342" key="GridCell.Tab.1.left" timestamp="1607260694602">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1898" height="342" key="GridCell.Tab.1.left/0.0.1920.1040@0.0.1920.1040" timestamp="1607260694602" />
+    <state width="1898" height="342" key="GridCell.Tab.1.right" timestamp="1607260694602">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1898" height="342" key="GridCell.Tab.1.right/0.0.1920.1040@0.0.1920.1040" timestamp="1607260694602" />
+    <state width="1898" height="342" key="GridCell.Tab.2.bottom" timestamp="1607260694602">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1898" height="342" key="GridCell.Tab.2.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1607260694602" />
+    <state width="1898" height="342" key="GridCell.Tab.2.center" timestamp="1607260694602">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1898" height="342" key="GridCell.Tab.2.center/0.0.1920.1040@0.0.1920.1040" timestamp="1607260694602" />
+    <state width="1898" height="342" key="GridCell.Tab.2.left" timestamp="1607260694602">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1898" height="342" key="GridCell.Tab.2.left/0.0.1920.1040@0.0.1920.1040" timestamp="1607260694602" />
+    <state width="1898" height="342" key="GridCell.Tab.2.right" timestamp="1607260694602">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1898" height="342" key="GridCell.Tab.2.right/0.0.1920.1040@0.0.1920.1040" timestamp="1607260694602" />
+    <state width="1898" height="342" key="GridCell.Tab.3.bottom" timestamp="1607260694602">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1898" height="342" key="GridCell.Tab.3.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1607260694602" />
+    <state width="1898" height="342" key="GridCell.Tab.3.center" timestamp="1607260694602">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1898" height="342" key="GridCell.Tab.3.center/0.0.1920.1040@0.0.1920.1040" timestamp="1607260694602" />
+    <state width="1898" height="342" key="GridCell.Tab.3.left" timestamp="1607260694602">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1898" height="342" key="GridCell.Tab.3.left/0.0.1920.1040@0.0.1920.1040" timestamp="1607260694602" />
+    <state width="1898" height="342" key="GridCell.Tab.3.right" timestamp="1607260694602">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1898" height="342" key="GridCell.Tab.3.right/0.0.1920.1040@0.0.1920.1040" timestamp="1607260694602" />
+    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1607257740728">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1607257740728" />
   </component>
 </project>

@@ -86,6 +86,61 @@
 /************************************************************************/
 /******/ ({
 
+/***/ "./components/ConfirmDialog.jsx":
+/*!**************************************!*\
+  !*** ./components/ConfirmDialog.jsx ***!
+  \**************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _material_ui_core_Button__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @material-ui/core/Button */ "./node_modules/@material-ui/core/esm/Button/index.js");
+/* harmony import */ var _material_ui_core_Dialog__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @material-ui/core/Dialog */ "./node_modules/@material-ui/core/esm/Dialog/index.js");
+/* harmony import */ var _material_ui_core_DialogActions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @material-ui/core/DialogActions */ "./node_modules/@material-ui/core/esm/DialogActions/index.js");
+/* harmony import */ var _material_ui_core_DialogContent__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @material-ui/core/DialogContent */ "./node_modules/@material-ui/core/esm/DialogContent/index.js");
+/* harmony import */ var _material_ui_core_DialogTitle__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @material-ui/core/DialogTitle */ "./node_modules/@material-ui/core/esm/DialogTitle/index.js");
+
+
+
+
+
+
+
+const ConfirmDialog = props => {
+  const {
+    title,
+    children,
+    open,
+    setOpen,
+    onConfirm
+  } = props;
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_Dialog__WEBPACK_IMPORTED_MODULE_2__["default"], {
+    open: open,
+    onClose: () => setOpen(false),
+    "aria-labelledby": "confirm-dialog"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_DialogTitle__WEBPACK_IMPORTED_MODULE_5__["default"], {
+    id: "confirm-dialog"
+  }, title), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_DialogContent__WEBPACK_IMPORTED_MODULE_4__["default"], null, children), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_DialogActions__WEBPACK_IMPORTED_MODULE_3__["default"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_Button__WEBPACK_IMPORTED_MODULE_1__["default"], {
+    variant: "contained",
+    onClick: () => setOpen(false),
+    color: "primary"
+  }, "\u041D\u0435\u0442"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_Button__WEBPACK_IMPORTED_MODULE_1__["default"], {
+    variant: "contained",
+    onClick: () => {
+      setOpen(false);
+      onConfirm();
+    },
+    color: "default"
+  }, "\u0414\u0430")));
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (ConfirmDialog);
+
+/***/ }),
+
 /***/ "./components/SpaComponent.jsx":
 /*!*************************************!*\
   !*** ./components/SpaComponent.jsx ***!
@@ -109,6 +164,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _material_ui_core_Select__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @material-ui/core/Select */ "./node_modules/@material-ui/core/esm/Select/index.js");
 /* harmony import */ var _material_ui_core_FormControl__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @material-ui/core/FormControl */ "./node_modules/@material-ui/core/esm/FormControl/index.js");
 /* harmony import */ var _Table__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./Table */ "./components/Table.jsx");
+/* harmony import */ var _ConfirmDialog__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./ConfirmDialog */ "./components/ConfirmDialog.jsx");
 
 
 
@@ -120,6 +176,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+ //Стили для material-ui
 
 const useStyles = Object(_material_ui_core_styles__WEBPACK_IMPORTED_MODULE_6__["makeStyles"])(theme => ({
   root: {
@@ -145,6 +203,7 @@ const useStyles = Object(_material_ui_core_styles__WEBPACK_IMPORTED_MODULE_6__["
 
 const SpaComponent = () => {
   //инициализация всех полей
+  const [confirmOpen, setConfirmOpen] = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(false);
   const classes = useStyles();
   const [storage, updateStorage] = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(Object.values(localStorage));
   const [email, updateEmail] = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])("");
@@ -169,7 +228,7 @@ const SpaComponent = () => {
     date: "",
     dateUpd: "",
     uniqueId: ""
-  });
+  }); //Счетчик для подсчета даты создания
 
   const dateCount = () => {
     let today = new Date();
@@ -185,7 +244,8 @@ const SpaComponent = () => {
     const randomNum = Math.floor(Math.random() * 100000000 + 1);
     const stringifyNum = String(randomNum);
     return stringifyNum;
-  };
+  }; //Обновление полей добавляемого пользователя
+
 
   Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(() => {
     updateUser(prevState => ({ ...prevState,
@@ -211,7 +271,8 @@ const SpaComponent = () => {
   const validatePhone = phone => {
     const regularPhone = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im;
     return regularPhone.test(phone);
-  };
+  }; //Обновление отрисованного списка
+
 
   const handleFetch = () => {
     updateFiltered(Object.values(localStorage));
@@ -228,7 +289,7 @@ const SpaComponent = () => {
     } else if (validateEmail(email) === false) {
       alert("Неверно введен e-mail");
       updateFiltered(Object.values(localStorage));
-    } else if (storage.some(user => JSON.parse(user).email == email || JSON.parse(user).phone == phone)) {
+    } else if (filtered.some(user => JSON.parse(user).email == email || JSON.parse(user).phone == phone)) {
       alert("Пользователь с таким номером телефона или email уже есть в базе");
       updateFiltered(Object.values(localStorage));
     } else {
@@ -236,36 +297,17 @@ const SpaComponent = () => {
       resetFields();
       updateFiltered(Object.values(localStorage));
     }
-  };
+  }; //Обновление статуса
+
 
   const handleSelect = event => {
     updateStatus(event.target.value);
-  };
+  }; //Обновление фильтра по статусу
+
 
   const handleStatusFilter = event => {
-    updateStatusFilter(event.target.value); // if (statusFilter == "All")
-    // {
-    //     let result = storage.filter(user => (JSON.parse(user).phone.includes(searchItem)) || (JSON.parse(user).email.toLowerCase().includes(searchItem)))
-    //     updateFiltered(result);
-    // }
-    // else
-    // {
-    //     let result = storage.filter(user => (JSON.parse(user).phone.includes(searchItem)) || (JSON.parse(user).email.toLowerCase().includes(searchItem)) && JSON.parse(user).status == statusFilter)
-    //     updateFiltered(result)
-    // }
-  }; // useEffect(() => {
-  //     if (statusFilter == "All")
-  //     {
-  //         let result = storage.filter(user => (JSON.parse(user).phone.includes(searchItem)) || (JSON.parse(user).email.toLowerCase().includes(searchItem)))
-  //         updateFiltered(result);
-  //     }
-  //     else
-  //     {
-  //         let result = storage.filter(user => (JSON.parse(user).phone.includes(searchItem)) || (JSON.parse(user).email.toLowerCase().includes(searchItem)) && JSON.parse(user).status == statusFilter)
-  //         updateFiltered(result)
-  //     }
-  //     console.log(statusFilter)
-  // }, [statusFilter])
+    updateStatusFilter(event.target.value);
+  }; //Поиск по телефону / эмейлу
 
 
   Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(() => {
@@ -276,7 +318,7 @@ const SpaComponent = () => {
       let result = storage.filter(user => (JSON.parse(user).phone.includes(searchItem) || JSON.parse(user).email.toLowerCase().includes(searchItem)) && JSON.parse(user).status == statusFilter);
       updateFiltered(result);
     }
-  }, [text, statusFilter]);
+  }, [text, statusFilter]); //Сброс всех полей после нажатия кнопки отправить
 
   const resetFields = () => {
     updateEmail("");
@@ -375,9 +417,16 @@ const SpaComponent = () => {
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_Button__WEBPACK_IMPORTED_MODULE_2__["default"], {
     variant: "contained",
     onClick: () => {
+      setConfirmOpen(true);
+    }
+  }, "\u041E\u0447\u0438\u0441\u0442\u0438\u0442\u044C \u0445\u0440\u0430\u043D\u0438\u043B\u0438\u0449\u0435"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_ConfirmDialog__WEBPACK_IMPORTED_MODULE_12__["default"], {
+    title: "\u041E\u0447\u0438\u0441\u0442\u0438\u0442\u044C \u0445\u0440\u0430\u043D\u0438\u043B\u0438\u0449\u0435?",
+    open: confirmOpen,
+    setOpen: setConfirmOpen,
+    onConfirm: () => {
       localStorage.clear(), updateFiltered(Object.entries(localStorage));
     }
-  }, "\u041E\u0447\u0438\u0441\u0442\u0438\u0442\u044C \u0445\u0440\u0430\u043D\u0438\u043B\u0438\u0449\u0435")))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+  }, "\u0412\u044B \u0443\u0432\u0435\u0440\u0435\u043D\u044B, \u0447\u0442\u043E \u0445\u043E\u0442\u0438\u0442\u0435 \u043E\u0447\u0438\u0441\u0442\u0438\u0442\u044C \u0445\u0440\u0430\u043D\u0438\u043B\u0438\u0449\u0435?")))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "mt-50"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     align: "center"
@@ -445,15 +494,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _material_ui_core_Button__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @material-ui/core/Button */ "./node_modules/@material-ui/core/esm/Button/index.js");
 /* harmony import */ var _material_ui_core_Typography__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! @material-ui/core/Typography */ "./node_modules/@material-ui/core/esm/Typography/index.js");
 /* harmony import */ var _material_ui_core_IconButton__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! @material-ui/core/IconButton */ "./node_modules/@material-ui/core/esm/IconButton/index.js");
-/* harmony import */ var _material_ui_core_Dialog__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! @material-ui/core/Dialog */ "./node_modules/@material-ui/core/esm/Dialog/index.js");
-/* harmony import */ var _material_ui_core_DialogActions__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! @material-ui/core/DialogActions */ "./node_modules/@material-ui/core/esm/DialogActions/index.js");
-/* harmony import */ var _material_ui_core_DialogTitle__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! @material-ui/core/DialogTitle */ "./node_modules/@material-ui/core/esm/DialogTitle/index.js");
-/* harmony import */ var _material_ui_core_useMediaQuery__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! @material-ui/core/useMediaQuery */ "./node_modules/@material-ui/core/esm/useMediaQuery/index.js");
-/* harmony import */ var _material_ui_core_TextField__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! @material-ui/core/TextField */ "./node_modules/@material-ui/core/esm/TextField/index.js");
-/* harmony import */ var _material_ui_core_FormControl__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! @material-ui/core/FormControl */ "./node_modules/@material-ui/core/esm/FormControl/index.js");
-/* harmony import */ var _material_ui_core_InputLabel__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! @material-ui/core/InputLabel */ "./node_modules/@material-ui/core/esm/InputLabel/index.js");
-/* harmony import */ var _material_ui_core_Select__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! @material-ui/core/Select */ "./node_modules/@material-ui/core/esm/Select/index.js");
-/* harmony import */ var _material_ui_core_MenuItem__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! @material-ui/core/MenuItem */ "./node_modules/@material-ui/core/esm/MenuItem/index.js");
+/* harmony import */ var _material_ui_core_TextField__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! @material-ui/core/TextField */ "./node_modules/@material-ui/core/esm/TextField/index.js");
+/* harmony import */ var _material_ui_core_FormControl__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! @material-ui/core/FormControl */ "./node_modules/@material-ui/core/esm/FormControl/index.js");
+/* harmony import */ var _material_ui_core_InputLabel__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! @material-ui/core/InputLabel */ "./node_modules/@material-ui/core/esm/InputLabel/index.js");
+/* harmony import */ var _material_ui_core_Select__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! @material-ui/core/Select */ "./node_modules/@material-ui/core/esm/Select/index.js");
+/* harmony import */ var _material_ui_core_MenuItem__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! @material-ui/core/MenuItem */ "./node_modules/@material-ui/core/esm/MenuItem/index.js");
+/* harmony import */ var _ConfirmDialog__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./ConfirmDialog */ "./components/ConfirmDialog.jsx");
 
 
 
@@ -476,10 +522,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
-
-
-
+ //Стили для material-ui
 
 const useStyles = Object(_material_ui_core_styles__WEBPACK_IMPORTED_MODULE_1__["makeStyles"])({
   root: {
@@ -500,10 +543,13 @@ const useStyles = Object(_material_ui_core_styles__WEBPACK_IMPORTED_MODULE_1__["
 });
 
 const Row = props => {
+  //Инициализация стейтов для редактирования пользователя
+  const [storage, updateStorage] = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(Object.values(localStorage));
   const {
     row
   } = props;
-  const [open, setOpen] = react__WEBPACK_IMPORTED_MODULE_0___default.a.useState(false);
+  const [openItem, setOpenItem] = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(false);
+  const [confirmOpen, setConfirmOpen] = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(false);
   const classes = useStyles();
   const [email, updateEmail] = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])("");
   const [password, updatePassword] = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])("");
@@ -524,7 +570,7 @@ const Row = props => {
     status: "",
     date: "",
     dateUpd: ""
-  });
+  }); //Подсчет даты последнего изменения
 
   const dateCount = () => {
     let today = new Date();
@@ -533,7 +579,8 @@ const Row = props => {
     let yyyy = today.getFullYear();
     today = mm + '/' + dd + '/' + yyyy;
     return today;
-  };
+  }; //Обновление данных для изменения пользователя
+
 
   Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(() => {
     updateUser(prevState => ({ ...prevState,
@@ -548,20 +595,57 @@ const Row = props => {
       date: date,
       dateUpd: dateCount()
     }));
-  }, [email, password, phone, firstName, lastName, patronymic, status]);
+  }, [email, password, phone, firstName, lastName, patronymic, status]); //Обновление значения статуса пользователя
 
   const handleSelect = event => {
     updateStatus(event.target.value);
-  };
+  }; //Открытие подстроки таблицы для редактирования
+
 
   const openHandler = () => {
-    setOpen(!open);
+    setOpenItem(!openItem);
   };
 
+  const checkSimilar = () => {
+    const result = storage.some(item => (JSON.parse(item).email.includes(email) || JSON.parse(item).phone.includes(phone)) && !JSON.parse(item.includes(uniqueId)));
+
+    if (!result) {
+      console.log(false);
+      return false;
+    } else {
+      console.log(true);
+      return true;
+    }
+  }; //Функция для валидации эмейла
+
+
+  const validateEmailChange = email => {
+    const regularEmail = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return regularEmail.test(String(email).toLowerCase());
+  }; //Функция для валидации номера телефона
+
+
+  const validatePhoneChange = phone => {
+    const regularPhone = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im;
+    return regularPhone.test(phone);
+  }; //Обновление данных в localStorage и валидация
+
+
   const submitChangeHandler = userId => {
-    localStorage.setItem(`${userId}`, JSON.stringify(user));
-    props.handleFetch();
-    console.log(user);
+    if ((email || password || phone || firstName || lastName || patronymic || status) == "") {
+      alert("Заполните все поля!");
+    } else if (validatePhoneChange(phone) === false) {
+      alert("Неверное введен номер телефона");
+    } else if (validateEmailChange(email) === false) {
+      alert("Неверно введен e-mail");
+    } else if (checkSimilar()) {
+      alert("Пользователь с таким номером телефона или email уже есть в базе");
+    } else {
+      localStorage.setItem(`${userId}`, JSON.stringify(user));
+      props.handleFetch();
+      setOpenItem(!openItem);
+      updateStorage(Object.values(localStorage));
+    }
   };
 
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0__["Fragment"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_TableRow__WEBPACK_IMPORTED_MODULE_9__["default"], {
@@ -572,9 +656,16 @@ const Row = props => {
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_icons_Build__WEBPACK_IMPORTED_MODULE_13___default.a, null)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_IconButton__WEBPACK_IMPORTED_MODULE_16__["default"], {
     size: "small",
     onClick: () => {
+      setConfirmOpen(true);
+    }
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_icons_Delete__WEBPACK_IMPORTED_MODULE_12___default.a, null)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_ConfirmDialog__WEBPACK_IMPORTED_MODULE_22__["default"], {
+    title: "\u0423\u0434\u0430\u043B\u0438\u0442\u044C \u043F\u043E\u043B\u044C\u0437\u043E\u0432\u0430\u0442\u0435\u043B\u044F?",
+    open: confirmOpen,
+    setOpen: setConfirmOpen,
+    onConfirm: () => {
       localStorage.removeItem(JSON.parse(row).uniqueId), props.handleFetch();
     }
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_icons_Delete__WEBPACK_IMPORTED_MODULE_12___default.a, null))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_TableCell__WEBPACK_IMPORTED_MODULE_6__["default"], {
+  }, "\u0412\u044B \u0443\u0432\u0435\u0440\u0435\u043D\u044B, \u0447\u0442\u043E \u0445\u043E\u0442\u0438\u0442\u0435 \u0443\u0434\u0430\u043B\u0438\u0442\u044C \u044D\u0442\u043E\u0433\u043E \u043F\u043E\u043B\u044C\u0437\u043E\u0432\u0430\u0442\u0435\u043B\u044F?")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_TableCell__WEBPACK_IMPORTED_MODULE_6__["default"], {
     component: "th",
     scope: "row"
   }, `${JSON.parse(row).lastName} ${JSON.parse(row).firstName} ${JSON.parse(row).patronymic}`), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_TableCell__WEBPACK_IMPORTED_MODULE_6__["default"], {
@@ -596,7 +687,7 @@ const Row = props => {
     },
     colSpan: 8
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_Collapse__WEBPACK_IMPORTED_MODULE_3__["default"], {
-    in: open,
+    in: openItem,
     timeout: "auto",
     unmountOnExit: true,
     onEnter: () => {
@@ -618,46 +709,46 @@ const Row = props => {
     component: "div"
   }, "\u0420\u0435\u0434\u0430\u043A\u0442\u0438\u0440\u043E\u0432\u0430\u0442\u044C"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_Table__WEBPACK_IMPORTED_MODULE_4__["default"], {
     size: "small"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_TableHead__WEBPACK_IMPORTED_MODULE_8__["default"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_TableRow__WEBPACK_IMPORTED_MODULE_9__["default"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_TableCell__WEBPACK_IMPORTED_MODULE_6__["default"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_TextField__WEBPACK_IMPORTED_MODULE_21__["default"], {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_TableHead__WEBPACK_IMPORTED_MODULE_8__["default"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_TableRow__WEBPACK_IMPORTED_MODULE_9__["default"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_TableCell__WEBPACK_IMPORTED_MODULE_6__["default"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_TextField__WEBPACK_IMPORTED_MODULE_17__["default"], {
     label: "E-mail",
     type: "email",
     defaultValue: JSON.parse(row).email,
     onChange: e => updateEmail(e.currentTarget.value)
-  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_TableCell__WEBPACK_IMPORTED_MODULE_6__["default"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_TextField__WEBPACK_IMPORTED_MODULE_21__["default"], {
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_TableCell__WEBPACK_IMPORTED_MODULE_6__["default"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_TextField__WEBPACK_IMPORTED_MODULE_17__["default"], {
     label: "\u041F\u0430\u0440\u043E\u043B\u044C",
     type: "text",
     defaultValue: JSON.parse(row).password,
     onChange: e => updatePassword(e.currentTarget.value)
-  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_TableCell__WEBPACK_IMPORTED_MODULE_6__["default"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_TextField__WEBPACK_IMPORTED_MODULE_21__["default"], {
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_TableCell__WEBPACK_IMPORTED_MODULE_6__["default"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_TextField__WEBPACK_IMPORTED_MODULE_17__["default"], {
     label: "\u0422\u0435\u043B\u0435\u0444\u043E\u043D",
     type: "tel",
     defaultValue: JSON.parse(row).phone,
     onChange: e => updatePhone(e.currentTarget.value)
-  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_TableCell__WEBPACK_IMPORTED_MODULE_6__["default"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_TextField__WEBPACK_IMPORTED_MODULE_21__["default"], {
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_TableCell__WEBPACK_IMPORTED_MODULE_6__["default"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_TextField__WEBPACK_IMPORTED_MODULE_17__["default"], {
     label: "\u0424\u0430\u043C\u0438\u043B\u0438\u044F",
     type: "text",
     defaultValue: JSON.parse(row).lastName,
     onChange: e => updateLastName(e.currentTarget.value)
-  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_TableCell__WEBPACK_IMPORTED_MODULE_6__["default"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_TextField__WEBPACK_IMPORTED_MODULE_21__["default"], {
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_TableCell__WEBPACK_IMPORTED_MODULE_6__["default"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_TextField__WEBPACK_IMPORTED_MODULE_17__["default"], {
     label: "\u0418\u043C\u044F",
     type: "text",
     defaultValue: JSON.parse(row).firstName,
     onChange: e => updateFirstName(e.currentTarget.value)
-  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_TableCell__WEBPACK_IMPORTED_MODULE_6__["default"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_TextField__WEBPACK_IMPORTED_MODULE_21__["default"], {
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_TableCell__WEBPACK_IMPORTED_MODULE_6__["default"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_TextField__WEBPACK_IMPORTED_MODULE_17__["default"], {
     label: "\u041E\u0442\u0447\u0435\u0441\u0442\u0432\u043E",
     type: "text",
     defaultValue: JSON.parse(row).patronymic,
     onChange: e => updatePatronymic(e.currentTarget.value)
-  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_TableCell__WEBPACK_IMPORTED_MODULE_6__["default"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_FormControl__WEBPACK_IMPORTED_MODULE_22__["default"], {
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_TableCell__WEBPACK_IMPORTED_MODULE_6__["default"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_FormControl__WEBPACK_IMPORTED_MODULE_18__["default"], {
     className: classes.formControl
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_InputLabel__WEBPACK_IMPORTED_MODULE_23__["default"], null, "\u0421\u0442\u0430\u0442\u0443\u0441"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_Select__WEBPACK_IMPORTED_MODULE_24__["default"], {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_InputLabel__WEBPACK_IMPORTED_MODULE_19__["default"], null, "\u0421\u0442\u0430\u0442\u0443\u0441"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_Select__WEBPACK_IMPORTED_MODULE_20__["default"], {
     defaultValue: JSON.parse(row).status,
     onChange: handleSelect
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_MenuItem__WEBPACK_IMPORTED_MODULE_25__["default"], {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_MenuItem__WEBPACK_IMPORTED_MODULE_21__["default"], {
     value: "Admin"
-  }, "Admin"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_MenuItem__WEBPACK_IMPORTED_MODULE_25__["default"], {
+  }, "Admin"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_MenuItem__WEBPACK_IMPORTED_MODULE_21__["default"], {
     value: "Client"
-  }, "Client"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_MenuItem__WEBPACK_IMPORTED_MODULE_25__["default"], {
+  }, "Client"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_MenuItem__WEBPACK_IMPORTED_MODULE_21__["default"], {
     value: "Partner"
   }, "Partner")))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_TableCell__WEBPACK_IMPORTED_MODULE_6__["default"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_Button__WEBPACK_IMPORTED_MODULE_14__["default"], {
     variant: "contained",
@@ -683,9 +774,10 @@ const DataTable = props => {
   }, "\u0414\u0430\u0442\u0430 \u0441\u043E\u0437\u0434\u0430\u043D\u0438\u044F"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_TableCell__WEBPACK_IMPORTED_MODULE_6__["default"], {
     align: "right"
   }, "\u0414\u0430\u0442\u0430 \u043F\u043E\u0441\u043B\u0435\u0434\u043D\u0435\u0433\u043E \u0438\u0437\u043C\u0435\u043D\u0435\u043D\u0438\u044F"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_TableBody__WEBPACK_IMPORTED_MODULE_5__["default"], null, props.filtered.map(row => /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Row, {
-    key: JSON.parse(row).email,
+    key: JSON.parse(row).uniqueId,
     row: row,
-    handleFetch: props.handleFetch
+    handleFetch: props.handleFetch,
+    filtered: props.filtered
   })))));
 };
 
@@ -4025,6 +4117,114 @@ var DialogActions = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__["forwardRef"
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _DialogActions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./DialogActions */ "./node_modules/@material-ui/core/esm/DialogActions/DialogActions.js");
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "default", function() { return _DialogActions__WEBPACK_IMPORTED_MODULE_0__["default"]; });
+
+
+
+/***/ }),
+
+/***/ "./node_modules/@material-ui/core/esm/DialogContent/DialogContent.js":
+/*!***************************************************************************!*\
+  !*** ./node_modules/@material-ui/core/esm/DialogContent/DialogContent.js ***!
+  \***************************************************************************/
+/*! exports provided: styles, default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "styles", function() { return styles; });
+/* harmony import */ var _babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/esm/extends */ "./node_modules/@babel/runtime/helpers/esm/extends.js");
+/* harmony import */ var _babel_runtime_helpers_esm_objectWithoutProperties__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/esm/objectWithoutProperties */ "./node_modules/@babel/runtime/helpers/esm/objectWithoutProperties.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var clsx__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! clsx */ "./node_modules/clsx/dist/clsx.m.js");
+/* harmony import */ var _styles_withStyles__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../styles/withStyles */ "./node_modules/@material-ui/core/esm/styles/withStyles.js");
+
+
+
+
+
+
+var styles = function styles(theme) {
+  return {
+    /* Styles applied to the root element. */
+    root: {
+      flex: '1 1 auto',
+      WebkitOverflowScrolling: 'touch',
+      // Add iOS momentum scrolling.
+      overflowY: 'auto',
+      padding: '8px 24px',
+      '&:first-child': {
+        // dialog without title
+        paddingTop: 20
+      }
+    },
+
+    /* Styles applied to the root element if `dividers={true}`. */
+    dividers: {
+      padding: '16px 24px',
+      borderTop: "1px solid ".concat(theme.palette.divider),
+      borderBottom: "1px solid ".concat(theme.palette.divider)
+    }
+  };
+};
+var DialogContent = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__["forwardRef"](function DialogContent(props, ref) {
+  var classes = props.classes,
+      className = props.className,
+      _props$dividers = props.dividers,
+      dividers = _props$dividers === void 0 ? false : _props$dividers,
+      other = Object(_babel_runtime_helpers_esm_objectWithoutProperties__WEBPACK_IMPORTED_MODULE_1__["default"])(props, ["classes", "className", "dividers"]);
+
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__["createElement"]("div", Object(_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__["default"])({
+    className: Object(clsx__WEBPACK_IMPORTED_MODULE_4__["default"])(classes.root, className, dividers && classes.dividers),
+    ref: ref
+  }, other));
+});
+ true ? DialogContent.propTypes = {
+  // ----------------------------- Warning --------------------------------
+  // | These PropTypes are generated from the TypeScript type definitions |
+  // |     To update them edit the d.ts file and run "yarn proptypes"     |
+  // ----------------------------------------------------------------------
+
+  /**
+   * The content of the component.
+   */
+  children: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.node,
+
+  /**
+   * Override or extend the styles applied to the component.
+   * See [CSS API](#css) below for more details.
+   */
+  classes: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.object,
+
+  /**
+   * @ignore
+   */
+  className: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.string,
+
+  /**
+   * Display the top and bottom dividers.
+   */
+  dividers: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.bool
+} : undefined;
+/* harmony default export */ __webpack_exports__["default"] = (Object(_styles_withStyles__WEBPACK_IMPORTED_MODULE_5__["default"])(styles, {
+  name: 'MuiDialogContent'
+})(DialogContent));
+
+/***/ }),
+
+/***/ "./node_modules/@material-ui/core/esm/DialogContent/index.js":
+/*!*******************************************************************!*\
+  !*** ./node_modules/@material-ui/core/esm/DialogContent/index.js ***!
+  \*******************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _DialogContent__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./DialogContent */ "./node_modules/@material-ui/core/esm/DialogContent/DialogContent.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "default", function() { return _DialogContent__WEBPACK_IMPORTED_MODULE_0__["default"]; });
 
 
 
@@ -16607,127 +16807,6 @@ function getTransitionProps(props, options) {
     duration: style.transitionDuration || typeof timeout === 'number' ? timeout : timeout[options.mode] || 0,
     delay: style.transitionDelay
   };
-}
-
-/***/ }),
-
-/***/ "./node_modules/@material-ui/core/esm/useMediaQuery/index.js":
-/*!*******************************************************************!*\
-  !*** ./node_modules/@material-ui/core/esm/useMediaQuery/index.js ***!
-  \*******************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _useMediaQuery__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./useMediaQuery */ "./node_modules/@material-ui/core/esm/useMediaQuery/useMediaQuery.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "default", function() { return _useMediaQuery__WEBPACK_IMPORTED_MODULE_0__["default"]; });
-
-
-
-/***/ }),
-
-/***/ "./node_modules/@material-ui/core/esm/useMediaQuery/useMediaQuery.js":
-/*!***************************************************************************!*\
-  !*** ./node_modules/@material-ui/core/esm/useMediaQuery/useMediaQuery.js ***!
-  \***************************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return useMediaQuery; });
-/* harmony import */ var _babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/esm/extends */ "./node_modules/@babel/runtime/helpers/esm/extends.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _material_ui_styles__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @material-ui/styles */ "./node_modules/@material-ui/styles/esm/index.js");
-
-
-
-function useMediaQuery(queryInput) {
-  var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
-  var theme = Object(_material_ui_styles__WEBPACK_IMPORTED_MODULE_2__["useTheme"])();
-  var props = Object(_material_ui_styles__WEBPACK_IMPORTED_MODULE_2__["getThemeProps"])({
-    theme: theme,
-    name: 'MuiUseMediaQuery',
-    props: {}
-  });
-
-  if (true) {
-    if (typeof queryInput === 'function' && theme === null) {
-      console.error(['Material-UI: The `query` argument provided is invalid.', 'You are providing a function without a theme in the context.', 'One of the parent elements needs to use a ThemeProvider.'].join('\n'));
-    }
-  }
-
-  var query = typeof queryInput === 'function' ? queryInput(theme) : queryInput;
-  query = query.replace(/^@media( ?)/m, ''); // Wait for jsdom to support the match media feature.
-  // All the browsers Material-UI support have this built-in.
-  // This defensive check is here for simplicity.
-  // Most of the time, the match media logic isn't central to people tests.
-
-  var supportMatchMedia = typeof window !== 'undefined' && typeof window.matchMedia !== 'undefined';
-
-  var _props$options = Object(_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__["default"])({}, props, options),
-      _props$options$defaul = _props$options.defaultMatches,
-      defaultMatches = _props$options$defaul === void 0 ? false : _props$options$defaul,
-      _props$options$matchM = _props$options.matchMedia,
-      matchMedia = _props$options$matchM === void 0 ? supportMatchMedia ? window.matchMedia : null : _props$options$matchM,
-      _props$options$noSsr = _props$options.noSsr,
-      noSsr = _props$options$noSsr === void 0 ? false : _props$options$noSsr,
-      _props$options$ssrMat = _props$options.ssrMatchMedia,
-      ssrMatchMedia = _props$options$ssrMat === void 0 ? null : _props$options$ssrMat;
-
-  var _React$useState = react__WEBPACK_IMPORTED_MODULE_1__["useState"](function () {
-    if (noSsr && supportMatchMedia) {
-      return matchMedia(query).matches;
-    }
-
-    if (ssrMatchMedia) {
-      return ssrMatchMedia(query).matches;
-    } // Once the component is mounted, we rely on the
-    // event listeners to return the correct matches value.
-
-
-    return defaultMatches;
-  }),
-      match = _React$useState[0],
-      setMatch = _React$useState[1];
-
-  react__WEBPACK_IMPORTED_MODULE_1__["useEffect"](function () {
-    var active = true;
-
-    if (!supportMatchMedia) {
-      return undefined;
-    }
-
-    var queryList = matchMedia(query);
-
-    var updateMatch = function updateMatch() {
-      // Workaround Safari wrong implementation of matchMedia
-      // TODO can we remove it?
-      // https://github.com/mui-org/material-ui/pull/17315#issuecomment-528286677
-      if (active) {
-        setMatch(queryList.matches);
-      }
-    };
-
-    updateMatch();
-    queryList.addListener(updateMatch);
-    return function () {
-      active = false;
-      queryList.removeListener(updateMatch);
-    };
-  }, [query, matchMedia, supportMatchMedia]);
-
-  if (true) {
-    // eslint-disable-next-line react-hooks/rules-of-hooks
-    react__WEBPACK_IMPORTED_MODULE_1__["useDebugValue"]({
-      query: query,
-      match: match
-    });
-  }
-
-  return match;
 }
 
 /***/ }),
