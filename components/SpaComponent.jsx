@@ -99,6 +99,7 @@ const SpaComponent = () => {
             dateUpd: dateCount(),
             uniqueId: createUniqueId()
         }));
+        updateStorage(Object.values(localStorage))
     },[email, password, phone, firstName, lastName, patronymic, status])
 
 
