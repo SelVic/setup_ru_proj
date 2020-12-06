@@ -90,6 +90,7 @@ const Row = (props) => {
     //Обновление значения статуса пользователя
     const handleSelect = (event) =>{
         updateStatus(event.target.value);
+        props.handleFetch()
     }
 
     //Открытие подстроки таблицы для редактирования
@@ -211,7 +212,7 @@ const Row = (props) => {
                                         <TableCell>
                                             <FormControl className={classes.formControl}>
                                                 <InputLabel>Статус</InputLabel>
-                                                <Select defaultValue = {JSON.parse(row).status} onChange={handleSelect}>
+                                                <Select value = {status} onChange={e =>  handleSelect(e)}>
                                                     <MenuItem value="Admin">Admin</MenuItem>
                                                     <MenuItem value="Client">Client</MenuItem>
                                                     <MenuItem value="Partner">Partner</MenuItem>
