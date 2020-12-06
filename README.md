@@ -2,23 +2,21 @@
 Тестовое задание для setup.ru
 
 
-Для установки через консоль:
-git pull https://github.com/SelVic/setup_ru_proj
-
+### Установка
 ```
+git pull https://github.com/SelVic/setup_ru_proj
 В корневой папке проекта
 npm install
 node server
-```
 
-Приложение развернется на localhost:3000
-```
 Проект использует webpack и gulp
 Для того, чтобы внесенные изменения в вступили в силу, в консоли, в корневой папке:
 
 Для JavaScript: webpack --watch
 Для CSS/SCC: gulp watch
 ```
+Приложение развернется на localhost:3000
+
 Функционал:
 ```
 -Таблица со списком пользователей из localstorage
