@@ -134,6 +134,12 @@ const useStyles = Object(_material_ui_core_styles__WEBPACK_IMPORTED_MODULE_6__["
   },
   selectEmpty: {
     marginTop: theme.spacing(2)
+  },
+  adder: {
+    minWidth: 150
+  },
+  select: {
+    minWidth: 150
   }
 }));
 
@@ -270,8 +276,6 @@ const SpaComponent = () => {
       let result = storage.filter(user => (JSON.parse(user).phone.includes(searchItem) || JSON.parse(user).email.toLowerCase().includes(searchItem)) && JSON.parse(user).status == statusFilter);
       updateFiltered(result);
     }
-
-    console.log(statusFilter);
   }, [text, statusFilter]);
 
   const resetFields = () => {
@@ -358,7 +362,7 @@ const SpaComponent = () => {
   }, "Client"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_MenuItem__WEBPACK_IMPORTED_MODULE_8__["default"], {
     value: "Partner"
   }, "Partner"))))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: "input-container mt-50"
+    className: "button-container mt-50"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
     className: "mt-20"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_Button__WEBPACK_IMPORTED_MODULE_2__["default"], {
@@ -378,13 +382,18 @@ const SpaComponent = () => {
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     align: "center"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_TextField__WEBPACK_IMPORTED_MODULE_1__["default"], {
-    label: "\u0424\u0438\u043B\u044C\u0442\u0440",
+    variant: "outlined",
+    className: classes.adder,
+    label: "\u041F\u043E\u0438\u0441\u043A",
     type: "text",
     value: text,
     onChange: e => updateText(e.currentTarget.value)
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_FormControl__WEBPACK_IMPORTED_MODULE_10__["default"], {
     className: classes.formControl
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_InputLabel__WEBPACK_IMPORTED_MODULE_7__["default"], null, "\u0421\u0442\u0430\u0442\u0443\u0441"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_Select__WEBPACK_IMPORTED_MODULE_9__["default"], {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_InputLabel__WEBPACK_IMPORTED_MODULE_7__["default"], {
+    className: classes.select
+  }, "\u0424\u0438\u043B\u044C\u0442\u0440 \u043F\u043E \u0441\u0442\u0430\u0442\u0443\u0441\u0443"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_Select__WEBPACK_IMPORTED_MODULE_9__["default"], {
+    className: classes.select,
     value: statusFilter,
     onChange: handleStatusFilter
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_MenuItem__WEBPACK_IMPORTED_MODULE_8__["default"], {
@@ -480,6 +489,7 @@ const useStyles = Object(_material_ui_core_styles__WEBPACK_IMPORTED_MODULE_1__["
   },
   table: {
     maxWidth: 1500,
+    boxShadow: "5px 5px 5px 4px rgba(0,0,0,0.3)",
     margin: "auto",
     ['@media (max-width:715px)']: {
       root: {

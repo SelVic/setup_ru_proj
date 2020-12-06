@@ -5,4 +5,16 @@
   flex-direction: row;
   justify-content: center;
   margin: auto;
+  border: 2px solid darkgrey;
+  border-radius: 3px;
+  box-shadow: 5px 5px 5px 0px rgba(0,0,0,0.3);
+}
+
+.button-container{
+  max-width: 700px;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: center;
+  margin: auto;
 }

@@ -5,7 +5,11 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/script.js" beforeDir="false" afterPath="$PROJECT_DIR$/build/script.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/script.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/build/script.js.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/build/styles.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/styles.css.map" beforeDir="false" afterPath="$PROJECT_DIR$/build/styles.css.map" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/components/SpaComponent.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/SpaComponent.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/Table.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/Table.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/styles/_container.scss" beforeDir="false" afterPath="$PROJECT_DIR$/styles/_container.scss" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -112,7 +116,7 @@
       <option name="presentableId" value="Default" />
       <updated>1607086463991</updated>
       <workItem from="1607086465854" duration="7085000" />
-      <workItem from="1607175598534" duration="27416000" />
+      <workItem from="1607175598534" duration="28423000" />
     </task>
     <servers />
   </component>

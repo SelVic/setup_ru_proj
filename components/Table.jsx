@@ -35,6 +35,7 @@ const useStyles = makeStyles({
     },
     table: {
         maxWidth: 1500,
+        boxShadow: "5px 5px 5px 4px rgba(0,0,0,0.3)",
         margin: "auto",
         ['@media (max-width:715px)']: {
             root: {

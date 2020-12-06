@@ -25,6 +25,12 @@ const useStyles = makeStyles((theme) => ({
     selectEmpty: {
         marginTop: theme.spacing(2),
     },
+    adder: {
+        minWidth: 150
+    },
+    select: {
+        minWidth: 150,
+    }
 }));
 
 const SpaComponent = () => {
@@ -175,7 +181,6 @@ const SpaComponent = () => {
             let result = storage.filter(user => ((JSON.parse(user).phone.includes(searchItem)) || (JSON.parse(user).email.toLowerCase().includes(searchItem))) && JSON.parse(user).status == statusFilter)
             updateFiltered(result)
         }
-        console.log(statusFilter)
     }, [text, statusFilter])
 
     const resetFields = () => {
@@ -235,7 +240,7 @@ const SpaComponent = () => {
                         </FormControl>
                     </div>
                 </form>
-                <div className="input-container mt-50">
+                <div className="button-container mt-50">
                     <a className="mt-20">
                         <Button variant="contained" onClick={() => {submitHandler()}}>Отправить</Button>
                     </a>
@@ -246,10 +251,10 @@ const SpaComponent = () => {
             </div>
             <div className="mt-50">
                 <div align="center">
-                    <TextField label="Фильтр" type="text" value = {text} onChange={e => updateText(e.currentTarget.value)} />
+                    <TextField variant="outlined" className={classes.adder} label="Поиск" type="text" value = {text} onChange={e => updateText(e.currentTarget.value)} />
                     <FormControl className={classes.formControl}>
-                            <InputLabel>Статус</InputLabel>
-                            <Select value={statusFilter} onChange={handleStatusFilter}>
+                            <InputLabel className={classes.select}>Фильтр по статусу</InputLabel>
+                            <Select className={classes.select} value={statusFilter} onChange={handleStatusFilter}>
                                 <MenuItem value="All">All</MenuItem>
                                 <MenuItem value="Admin">Admin</MenuItem>
                                 <MenuItem value="Client">Client</MenuItem>
@@ -257,7 +262,6 @@ const SpaComponent = () => {
                             </Select>
                     </FormControl>
                 </div>
-
                 <DataTable filtered={filtered} handleFetch={handleFetch}/>
             </div>
         </Fragment>
