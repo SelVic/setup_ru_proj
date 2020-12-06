@@ -28,18 +28,6 @@ import MenuItem from "@material-ui/core/MenuItem";
 
 
 const useStyles = makeStyles({
-    table: {
-        maxWidth: 1500,
-        margin: "auto",
-        ['@media (max-width:715px)']: {
-            root: {
-                width: "100%"
-            },
-        },
-    },
-});
-
-const useRowStyles = makeStyles({
     root: {
         '& > *': {
             borderBottom: 'unset',
@@ -57,65 +45,11 @@ const useRowStyles = makeStyles({
 });
 
 
-// const DataTable = (props) => {
-//
-//     const classes = useStyles();
-//     const [open, setOpen] = useState(false);
-//
-//     const changeItemHandler = () => {
-//
-//     }
-//
-//
-//
-//
-//
-//
-//     return (
-//         <TableContainer className={classes.table} component={Paper}>
-//             <Table size="small" aria-label="a dense table">
-//                 <TableHead>
-//                     <TableRow>
-//                         <TableCell></TableCell>
-//                         <TableCell>ФИО</TableCell>
-//                         <TableCell align="right">E-mail</TableCell>
-//                         <TableCell align="right">Пароль</TableCell>
-//                         <TableCell align="right">Номер телефона</TableCell>
-//                         <TableCell align="right">Статус</TableCell>
-//                     </TableRow>
-//                 </TableHead>
-//                 <TableBody>
-//                     {props.storage.map((row) => (
-//                         <TableRow key={JSON.parse(row).email}>
-//                             <TableCell>
-//                                 <IconButton size="small" onClick={() => openHandler()}>
-//                                     <BuildIcon/>
-//                                 </IconButton>
-//                                 <IconButton size="small" onClick={() =>{localStorage.removeItem(JSON.parse(row).phone), props.handleFetch()}}>
-//                                     <DeleteIcon/>
-//                                 </IconButton>
-//                             </TableCell>
-//                             <TableCell component="th" scope="row">
-//                                 {`${JSON.parse(row).firstName} ${JSON.parse(row).lastName} ${JSON.parse(row).patronymic}`}
-//                             </TableCell>
-//                             <TableCell align="right">{JSON.parse(row).email}</TableCell>
-//                             <TableCell align="right">{JSON.parse(row).password}</TableCell>
-//                             <TableCell align="right">{JSON.parse(row).phone}</TableCell>
-//                             <TableCell align="right">{JSON.parse(row).status}</TableCell>
-//                         </TableRow>
-//                     ))}
-//                 </TableBody>
-//             </Table>
-//         </TableContainer>
-//     );
-// }
-
-
 
 const Row = (props) => {
     const { row } = props;
     const [open, setOpen] = React.useState(false);
-    const classes = useRowStyles();
+    const classes = useStyles();
     const [email, updateEmail] = useState("");
     const [password, updatePassword] = useState("");
     const [phone, updatePhone] = useState ("");
@@ -123,6 +57,8 @@ const Row = (props) => {
     const [lastName, updateLastName] = useState("");
     const [patronymic, updatePatronymic] = useState("");
     const [status, updateStatus] = useState("");
+    const [uniqueId, updateUniqueId] = useState("")
+    const [date, updateDate] = useState("")
     const [user, updateUser] = useState({
         email: "",
         password: "",
@@ -156,7 +92,8 @@ const Row = (props) => {
             lastName: lastName,
             patronymic: patronymic,
             status: status,
-            date: dateCount(),
+            uniqueId: uniqueId,
+            date: date,
             dateUpd: dateCount()
         }));
     },[email, password, phone, firstName, lastName, patronymic, status])
@@ -169,6 +106,13 @@ const Row = (props) => {
         setOpen(!open)
     }
 
+
+    const submitChangeHandler = (userId) =>{
+            localStorage.setItem(`${userId}`, JSON.stringify(user))
+            props.handleFetch()
+        console.log(user)
+    }
+
     return (
         <Fragment>
             <TableRow className={classes.root}>
@@ -176,7 +120,7 @@ const Row = (props) => {
                     <IconButton size="small" onClick={() => openHandler()}>
                         <BuildIcon/>
                     </IconButton>
-                    <IconButton size="small" onClick={() =>{localStorage.removeItem(JSON.parse(row).phone), props.handleFetch()}}>
+                    <IconButton size="small" onClick={() =>{localStorage.removeItem(JSON.parse(row).uniqueId), props.handleFetch()}}>
                         <DeleteIcon/>
                     </IconButton>
                 </TableCell>
@@ -192,35 +136,55 @@ const Row = (props) => {
             </TableRow>
             <TableRow>
                 <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={8}>
-                    <Collapse in={open} timeout="auto" unmountOnExit>
+                    <Collapse in={open} timeout="auto" unmountOnExit onEnter={() => {
+                            updateEmail(JSON.parse(row).email)
+                            updatePassword(JSON.parse(row).password)
+                            updatePhone(JSON.parse(row).phone)
+                            updateFirstName(JSON.parse(row).firstName)
+                            updateLastName(JSON.parse(row).lastName)
+                            updatePatronymic(JSON.parse(row).patronymic)
+                            updateStatus(JSON.parse(row).status)
+                            updateUniqueId(JSON.parse(row).uniqueId)
+                            updateDate(JSON.parse(row).date)
+                        }
+                    }>
                         <Box margin={1}>
                             <Typography variant="h6" gutterBottom component="div">
                                 Редактировать
                             </Typography>
-                            <Table size="small" aria-label="purchases">
+                            <Table size="small">
                                 <TableHead>
                                     <TableRow>
-                                        <TableCell><TextField label="E-mail" defaultValue={JSON.parse(row).email} type="email" value = {email} onChange={e => updateEmail(e.currentTarget.value)} /></TableCell>
-                                        <TableCell><TextField label="Пароль" defaultValue={JSON.parse(row).password} type="text" value = {password} onChange={e => updatePassword(e.currentTarget.value)} /></TableCell>
-                                        <TableCell><TextField label="Телефон" defaultValue={JSON.parse(row).phone} type="tel" value = {phone} onChange={e => updatePhone(e.currentTarget.value)} /></TableCell>
-                                        <TableCell><TextField label="Фамилия" defaultValue={JSON.parse(row).lastName} type="text" value = {lastName} onChange={e => updateLastName(e.currentTarget.value)} /></TableCell>
-                                        <TableCell><TextField label="Имя" defaultValue={JSON.parse(row).firstName} type="text" value = {firstName} onChange={e => updateFirstName(e.currentTarget.value)} /></TableCell>
-                                        <TableCell><TextField label="Отчество" defaultValue={JSON.parse(row).patronymic} type="text" value = {patronymic} onChange={e => updatePatronymic(e.currentTarget.value)} /></TableCell>
-                                        <TableCell><FormControl className={classes.formControl}>
-                                            <InputLabel id="demo-simple-select-label">Статус</InputLabel>
-                                            <Select
-                                                labelId="demo-simple-select-label"
-                                                id="demo-simple-select"
-                                                value={status}
-                                                onChange={handleSelect}
-                                            >
-                                                <MenuItem value="Admin">Admin</MenuItem>
-                                                <MenuItem value="Client">Client</MenuItem>
-                                                <MenuItem value="Partner">Partner</MenuItem>
-                                            </Select>
-                                        </FormControl></TableCell>
                                         <TableCell>
-                                            <Button variant="contained">
+                                            <TextField label="E-mail"  type="email" defaultValue = {JSON.parse(row).email} onChange={e => updateEmail(e.currentTarget.value)} />
+                                        </TableCell>
+                                        <TableCell>
+                                            <TextField label="Пароль" type="text" defaultValue = {JSON.parse(row).password} onChange={e => updatePassword(e.currentTarget.value)} />
+                                        </TableCell>
+                                        <TableCell>
+                                            <TextField label="Телефон" type="tel" defaultValue = {JSON.parse(row).phone} onChange={e => updatePhone(e.currentTarget.value)} />
+                                        </TableCell>
+                                        <TableCell>
+                                            <TextField label="Фамилия" type="text" defaultValue = {JSON.parse(row).lastName} onChange={e => updateLastName(e.currentTarget.value)} />
+                                        </TableCell>
+                                        <TableCell>
+                                            <TextField label="Имя" type="text" defaultValue = {JSON.parse(row).firstName} onChange={e => updateFirstName(e.currentTarget.value)} />
+                                        </TableCell>
+                                        <TableCell>
+                                            <TextField label="Отчество"  type="text" defaultValue = {JSON.parse(row).patronymic} onChange={e => updatePatronymic(e.currentTarget.value)} />
+                                        </TableCell>
+                                        <TableCell>
+                                            <FormControl className={classes.formControl}>
+                                            <InputLabel>Статус</InputLabel>
+                                                <Select defaultValue = {JSON.parse(row).status} onChange={handleSelect}>
+                                                    <MenuItem value="Admin">Admin</MenuItem>
+                                                    <MenuItem value="Client">Client</MenuItem>
+                                                    <MenuItem value="Partner">Partner</MenuItem>
+                                                </Select>
+                                            </FormControl>
+                                        </TableCell>
+                                        <TableCell>
+                                            <Button variant="contained" onClick={()=> submitChangeHandler(JSON.parse(row).uniqueId)}>
                                                 Изменить
                                             </Button>
                                         </TableCell>
@@ -238,7 +202,7 @@ const Row = (props) => {
 }
 
 const DataTable = (props) => {
-    const classes = useRowStyles();
+    const classes = useStyles();
 
     return (
         <TableContainer className={classes.table} component={Paper}>

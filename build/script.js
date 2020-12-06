@@ -157,7 +157,8 @@ const SpaComponent = () => {
     patronymic: "",
     status: "",
     date: "",
-    dateUpd: ""
+    dateUpd: "",
+    uniqueId: ""
   });
 
   const dateCount = () => {
@@ -167,6 +168,13 @@ const SpaComponent = () => {
     let yyyy = today.getFullYear();
     today = mm + '/' + dd + '/' + yyyy;
     return today;
+  }; //Создание уникального ключа для юзера в localstorage
+
+
+  const createUniqueId = () => {
+    const randomNum = Math.floor(Math.random() * 100000000 + 1);
+    const stringifyNum = String(randomNum);
+    return stringifyNum;
   };
 
   Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(() => {
@@ -179,7 +187,8 @@ const SpaComponent = () => {
       patronymic: patronymic,
       status: status,
       date: dateCount(),
-      dateUpd: dateCount()
+      dateUpd: dateCount(),
+      uniqueId: createUniqueId()
     }));
   }, [email, password, phone, firstName, lastName, patronymic, status]); //Функция для валидации эмейла
 
@@ -213,7 +222,7 @@ const SpaComponent = () => {
       alert("Пользователь с таким номером телефона или email уже есть в базе");
       updateStorage(Object.values(localStorage));
     } else {
-      localStorage.setItem(`${user.phone}`, JSON.stringify(user));
+      localStorage.setItem(`${user.uniqueId}`, JSON.stringify(user));
       resetFields();
       updateStorage(Object.values(localStorage));
     }
@@ -300,8 +309,6 @@ const SpaComponent = () => {
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_InputLabel__WEBPACK_IMPORTED_MODULE_7__["default"], {
     id: "demo-simple-select-label"
   }, "\u0421\u0442\u0430\u0442\u0443\u0441"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_Select__WEBPACK_IMPORTED_MODULE_9__["default"], {
-    labelId: "demo-simple-select-label",
-    id: "demo-simple-select",
     value: status,
     onChange: handleSelect
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_MenuItem__WEBPACK_IMPORTED_MODULE_8__["default"], {
@@ -406,17 +413,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
 const useStyles = Object(_material_ui_core_styles__WEBPACK_IMPORTED_MODULE_1__["makeStyles"])({
-  table: {
-    maxWidth: 1500,
-    margin: "auto",
-    ['@media (max-width:715px)']: {
-      root: {
-        width: "100%"
-      }
-    }
-  }
-});
-const useRowStyles = Object(_material_ui_core_styles__WEBPACK_IMPORTED_MODULE_1__["makeStyles"])({
   root: {
     '& > *': {
       borderBottom: 'unset'
@@ -431,65 +427,14 @@ const useRowStyles = Object(_material_ui_core_styles__WEBPACK_IMPORTED_MODULE_1_
       }
     }
   }
-}); // const DataTable = (props) => {
-//
-//     const classes = useStyles();
-//     const [open, setOpen] = useState(false);
-//
-//     const changeItemHandler = () => {
-//
-//     }
-//
-//
-//
-//
-//
-//
-//     return (
-//         <TableContainer className={classes.table} component={Paper}>
-//             <Table size="small" aria-label="a dense table">
-//                 <TableHead>
-//                     <TableRow>
-//                         <TableCell></TableCell>
-//                         <TableCell>ФИО</TableCell>
-//                         <TableCell align="right">E-mail</TableCell>
-//                         <TableCell align="right">Пароль</TableCell>
-//                         <TableCell align="right">Номер телефона</TableCell>
-//                         <TableCell align="right">Статус</TableCell>
-//                     </TableRow>
-//                 </TableHead>
-//                 <TableBody>
-//                     {props.storage.map((row) => (
-//                         <TableRow key={JSON.parse(row).email}>
-//                             <TableCell>
-//                                 <IconButton size="small" onClick={() => openHandler()}>
-//                                     <BuildIcon/>
-//                                 </IconButton>
-//                                 <IconButton size="small" onClick={() =>{localStorage.removeItem(JSON.parse(row).phone), props.handleFetch()}}>
-//                                     <DeleteIcon/>
-//                                 </IconButton>
-//                             </TableCell>
-//                             <TableCell component="th" scope="row">
-//                                 {`${JSON.parse(row).firstName} ${JSON.parse(row).lastName} ${JSON.parse(row).patronymic}`}
-//                             </TableCell>
-//                             <TableCell align="right">{JSON.parse(row).email}</TableCell>
-//                             <TableCell align="right">{JSON.parse(row).password}</TableCell>
-//                             <TableCell align="right">{JSON.parse(row).phone}</TableCell>
-//                             <TableCell align="right">{JSON.parse(row).status}</TableCell>
-//                         </TableRow>
-//                     ))}
-//                 </TableBody>
-//             </Table>
-//         </TableContainer>
-//     );
-// }
+});
 
 const Row = props => {
   const {
     row
   } = props;
   const [open, setOpen] = react__WEBPACK_IMPORTED_MODULE_0___default.a.useState(false);
-  const classes = useRowStyles();
+  const classes = useStyles();
   const [email, updateEmail] = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])("");
   const [password, updatePassword] = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])("");
   const [phone, updatePhone] = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])("");
@@ -497,6 +442,8 @@ const Row = props => {
   const [lastName, updateLastName] = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])("");
   const [patronymic, updatePatronymic] = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])("");
   const [status, updateStatus] = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])("");
+  const [uniqueId, updateUniqueId] = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])("");
+  const [date, updateDate] = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])("");
   const [user, updateUser] = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])({
     email: "",
     password: "",
@@ -527,7 +474,8 @@ const Row = props => {
       lastName: lastName,
       patronymic: patronymic,
       status: status,
-      date: dateCount(),
+      uniqueId: uniqueId,
+      date: date,
       dateUpd: dateCount()
     }));
   }, [email, password, phone, firstName, lastName, patronymic, status]);
@@ -540,6 +488,12 @@ const Row = props => {
     setOpen(!open);
   };
 
+  const submitChangeHandler = userId => {
+    localStorage.setItem(`${userId}`, JSON.stringify(user));
+    props.handleFetch();
+    console.log(user);
+  };
+
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0__["Fragment"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_TableRow__WEBPACK_IMPORTED_MODULE_9__["default"], {
     className: classes.root
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_TableCell__WEBPACK_IMPORTED_MODULE_6__["default"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_IconButton__WEBPACK_IMPORTED_MODULE_16__["default"], {
@@ -548,7 +502,7 @@ const Row = props => {
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_icons_Build__WEBPACK_IMPORTED_MODULE_13___default.a, null)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_IconButton__WEBPACK_IMPORTED_MODULE_16__["default"], {
     size: "small",
     onClick: () => {
-      localStorage.removeItem(JSON.parse(row).phone), props.handleFetch();
+      localStorage.removeItem(JSON.parse(row).uniqueId), props.handleFetch();
     }
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_icons_Delete__WEBPACK_IMPORTED_MODULE_12___default.a, null))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_TableCell__WEBPACK_IMPORTED_MODULE_6__["default"], {
     component: "th",
@@ -574,7 +528,18 @@ const Row = props => {
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_Collapse__WEBPACK_IMPORTED_MODULE_3__["default"], {
     in: open,
     timeout: "auto",
-    unmountOnExit: true
+    unmountOnExit: true,
+    onEnter: () => {
+      updateEmail(JSON.parse(row).email);
+      updatePassword(JSON.parse(row).password);
+      updatePhone(JSON.parse(row).phone);
+      updateFirstName(JSON.parse(row).firstName);
+      updateLastName(JSON.parse(row).lastName);
+      updatePatronymic(JSON.parse(row).patronymic);
+      updateStatus(JSON.parse(row).status);
+      updateUniqueId(JSON.parse(row).uniqueId);
+      updateDate(JSON.parse(row).date);
+    }
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_Box__WEBPACK_IMPORTED_MODULE_2__["default"], {
     margin: 1
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_Typography__WEBPACK_IMPORTED_MODULE_15__["default"], {
@@ -582,52 +547,41 @@ const Row = props => {
     gutterBottom: true,
     component: "div"
   }, "\u0420\u0435\u0434\u0430\u043A\u0442\u0438\u0440\u043E\u0432\u0430\u0442\u044C"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_Table__WEBPACK_IMPORTED_MODULE_4__["default"], {
-    size: "small",
-    "aria-label": "purchases"
+    size: "small"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_TableHead__WEBPACK_IMPORTED_MODULE_8__["default"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_TableRow__WEBPACK_IMPORTED_MODULE_9__["default"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_TableCell__WEBPACK_IMPORTED_MODULE_6__["default"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_TextField__WEBPACK_IMPORTED_MODULE_21__["default"], {
     label: "E-mail",
-    defaultValue: JSON.parse(row).email,
     type: "email",
-    value: email,
+    defaultValue: JSON.parse(row).email,
     onChange: e => updateEmail(e.currentTarget.value)
   })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_TableCell__WEBPACK_IMPORTED_MODULE_6__["default"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_TextField__WEBPACK_IMPORTED_MODULE_21__["default"], {
     label: "\u041F\u0430\u0440\u043E\u043B\u044C",
-    defaultValue: JSON.parse(row).password,
     type: "text",
-    value: password,
+    defaultValue: JSON.parse(row).password,
     onChange: e => updatePassword(e.currentTarget.value)
   })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_TableCell__WEBPACK_IMPORTED_MODULE_6__["default"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_TextField__WEBPACK_IMPORTED_MODULE_21__["default"], {
     label: "\u0422\u0435\u043B\u0435\u0444\u043E\u043D",
-    defaultValue: JSON.parse(row).phone,
     type: "tel",
-    value: phone,
+    defaultValue: JSON.parse(row).phone,
     onChange: e => updatePhone(e.currentTarget.value)
   })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_TableCell__WEBPACK_IMPORTED_MODULE_6__["default"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_TextField__WEBPACK_IMPORTED_MODULE_21__["default"], {
     label: "\u0424\u0430\u043C\u0438\u043B\u0438\u044F",
-    defaultValue: JSON.parse(row).lastName,
     type: "text",
-    value: lastName,
+    defaultValue: JSON.parse(row).lastName,
     onChange: e => updateLastName(e.currentTarget.value)
   })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_TableCell__WEBPACK_IMPORTED_MODULE_6__["default"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_TextField__WEBPACK_IMPORTED_MODULE_21__["default"], {
     label: "\u0418\u043C\u044F",
-    defaultValue: JSON.parse(row).firstName,
     type: "text",
-    value: firstName,
+    defaultValue: JSON.parse(row).firstName,
     onChange: e => updateFirstName(e.currentTarget.value)
   })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_TableCell__WEBPACK_IMPORTED_MODULE_6__["default"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_TextField__WEBPACK_IMPORTED_MODULE_21__["default"], {
     label: "\u041E\u0442\u0447\u0435\u0441\u0442\u0432\u043E",
-    defaultValue: JSON.parse(row).patronymic,
     type: "text",
-    value: patronymic,
+    defaultValue: JSON.parse(row).patronymic,
     onChange: e => updatePatronymic(e.currentTarget.value)
   })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_TableCell__WEBPACK_IMPORTED_MODULE_6__["default"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_FormControl__WEBPACK_IMPORTED_MODULE_22__["default"], {
     className: classes.formControl
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_InputLabel__WEBPACK_IMPORTED_MODULE_23__["default"], {
-    id: "demo-simple-select-label"
-  }, "\u0421\u0442\u0430\u0442\u0443\u0441"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_Select__WEBPACK_IMPORTED_MODULE_24__["default"], {
-    labelId: "demo-simple-select-label",
-    id: "demo-simple-select",
-    value: status,
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_InputLabel__WEBPACK_IMPORTED_MODULE_23__["default"], null, "\u0421\u0442\u0430\u0442\u0443\u0441"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_Select__WEBPACK_IMPORTED_MODULE_24__["default"], {
+    defaultValue: JSON.parse(row).status,
     onChange: handleSelect
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_MenuItem__WEBPACK_IMPORTED_MODULE_25__["default"], {
     value: "Admin"
@@ -636,12 +590,13 @@ const Row = props => {
   }, "Client"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_MenuItem__WEBPACK_IMPORTED_MODULE_25__["default"], {
     value: "Partner"
   }, "Partner")))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_TableCell__WEBPACK_IMPORTED_MODULE_6__["default"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_Button__WEBPACK_IMPORTED_MODULE_14__["default"], {
-    variant: "contained"
+    variant: "contained",
+    onClick: () => submitChangeHandler(JSON.parse(row).uniqueId)
   }, "\u0418\u0437\u043C\u0435\u043D\u0438\u0442\u044C")))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_TableBody__WEBPACK_IMPORTED_MODULE_5__["default"], null)))))));
 };
 
 const DataTable = props => {
-  const classes = useRowStyles();
+  const classes = useStyles();
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_TableContainer__WEBPACK_IMPORTED_MODULE_7__["default"], {
     className: classes.table,
     component: _material_ui_core_Paper__WEBPACK_IMPORTED_MODULE_10__["default"]

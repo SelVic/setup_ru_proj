@@ -49,7 +49,8 @@ const SpaComponent = () => {
         patronymic: "",
         status: "",
         date: "",
-        dateUpd: ""
+        dateUpd: "",
+        uniqueId: ""
     })
 
     const dateCount = () => {
@@ -63,6 +64,12 @@ const SpaComponent = () => {
         return today
     }
 
+    //Создание уникального ключа для юзера в localstorage
+    const createUniqueId = () => {
+        const randomNum = Math.floor((Math.random()*100000000)+1)
+        const stringifyNum = String(randomNum)
+        return stringifyNum
+    }
 
     useEffect(() => {
         updateUser(prevState => ({
@@ -75,7 +82,8 @@ const SpaComponent = () => {
             patronymic: patronymic,
             status: status,
             date: dateCount(),
-            dateUpd: dateCount()
+            dateUpd: dateCount(),
+            uniqueId: createUniqueId()
         }));
     },[email, password, phone, firstName, lastName, patronymic, status])
 
@@ -99,7 +107,6 @@ const SpaComponent = () => {
     }
 
     //Отправка данных и валидация введеных данных
-
     const submitHandler = () => {
         if((email || password || phone || firstName || lastName || patronymic || status)== "")
             {alert("Заполните все поля!")
@@ -115,7 +122,7 @@ const SpaComponent = () => {
                 updateStorage(Object.values(localStorage))}
         else
         {
-            localStorage.setItem(`${user.phone}`, JSON.stringify(user))
+            localStorage.setItem(`${user.uniqueId}`, JSON.stringify(user))
             resetFields()
             updateStorage(Object.values(localStorage))
         }
@@ -175,12 +182,7 @@ const SpaComponent = () => {
                     <div className="ml-20">
                         <FormControl className={classes.formControl}>
                             <InputLabel id="demo-simple-select-label">Статус</InputLabel>
-                            <Select
-                                labelId="demo-simple-select-label"
-                                id="demo-simple-select"
-                                value={status}
-                                onChange={handleSelect}
-                            >
+                            <Select value={status} onChange={handleSelect}>
                                 <MenuItem value="Admin">Admin</MenuItem>
                                 <MenuItem value="Client">Client</MenuItem>
                                 <MenuItem value="Partner">Partner</MenuItem>
