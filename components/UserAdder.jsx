@@ -36,7 +36,7 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-const SpaComponent = () => {
+const UserAdder = () => {
 
     //инициализация всех полей
     const [confirmOpen, setConfirmOpen] = useState(false)
@@ -263,4 +263,4 @@ const SpaComponent = () => {
 
 
 
-export {SpaComponent}
+export {UserAdder}

@@ -1,11 +1,11 @@
 import React from "react"
 import {render} from "react-dom"
-import {SpaComponent} from "./components/SpaComponent";
+import {UserAdder} from "./components/UserAdder";
 
 
 const App = () =>{
     return(
-        <SpaComponent/>
+        <UserAdder/>
     )
 }
 
