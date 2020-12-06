@@ -10,10 +10,10 @@ npm install
 node server
 
 Проект использует webpack и gulp
-Для того, чтобы внесенные изменения в вступили в силу, в консоли, в корневой папке:
+Для того, чтобы внесенные изменения в вступили в силу — в консоли, в корневой папке:
 
-Для JavaScript: webpack --watch
-Для CSS/SCC: gulp watch
+Для изменений JavaScript: webpack --watch
+Для изменений CSS/SCC: gulp watch
 ```
 Приложение развернется на localhost:3000
 
