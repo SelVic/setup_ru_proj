@@ -148,6 +148,10 @@ const SpaComponent = () => {
   const [lastName, updateLastName] = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])("");
   const [patronymic, updatePatronymic] = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])("");
   const [status, updateStatus] = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])("");
+  const [text, updateText] = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])("");
+  const [filtered, updateFiltered] = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(Object.values(localStorage));
+  const [statusFilter, updateStatusFilter] = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])("All");
+  let searchItem = text.trim().toLowerCase();
   const [user, updateUser] = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])({
     email: "",
     password: "",
@@ -232,6 +236,20 @@ const SpaComponent = () => {
     updateStatus(event.target.value);
   };
 
+  const handleStatusFilter = event => {
+    updateStatusFilter(event.target.value);
+  };
+
+  Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(() => {
+    if (statusFilter == "All") {
+      let result = storage.filter(user => JSON.parse(user).phone.includes(searchItem) || JSON.parse(user).email.toLowerCase().includes(searchItem));
+      updateFiltered(result);
+    } else {
+      let result = storage.filter(user => JSON.parse(user).phone.includes(searchItem) || JSON.parse(user).email.toLowerCase().includes(searchItem) && JSON.parse(user).status == statusFilter);
+      updateFiltered(result);
+    }
+  }, [text]);
+
   const resetFields = () => {
     updateEmail("");
     updateStatus("");
@@ -306,9 +324,7 @@ const SpaComponent = () => {
     className: "ml-20"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_FormControl__WEBPACK_IMPORTED_MODULE_10__["default"], {
     className: classes.formControl
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_InputLabel__WEBPACK_IMPORTED_MODULE_7__["default"], {
-    id: "demo-simple-select-label"
-  }, "\u0421\u0442\u0430\u0442\u0443\u0441"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_Select__WEBPACK_IMPORTED_MODULE_9__["default"], {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_InputLabel__WEBPACK_IMPORTED_MODULE_7__["default"], null, "\u0421\u0442\u0430\u0442\u0443\u0441"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_Select__WEBPACK_IMPORTED_MODULE_9__["default"], {
     value: status,
     onChange: handleSelect
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_MenuItem__WEBPACK_IMPORTED_MODULE_8__["default"], {
@@ -335,8 +351,28 @@ const SpaComponent = () => {
     }
   }, "\u041E\u0447\u0438\u0441\u0442\u0438\u0442\u044C \u0445\u0440\u0430\u043D\u0438\u043B\u0438\u0449\u0435")))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "mt-50"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Table__WEBPACK_IMPORTED_MODULE_11__["DataTable"], {
-    storage: storage,
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    align: "center"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_TextField__WEBPACK_IMPORTED_MODULE_1__["default"], {
+    label: "\u0424\u0438\u043B\u044C\u0442\u0440",
+    type: "text",
+    value: text,
+    onChange: e => updateText(e.currentTarget.value)
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_FormControl__WEBPACK_IMPORTED_MODULE_10__["default"], {
+    className: classes.formControl
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_InputLabel__WEBPACK_IMPORTED_MODULE_7__["default"], null, "\u0421\u0442\u0430\u0442\u0443\u0441"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_Select__WEBPACK_IMPORTED_MODULE_9__["default"], {
+    value: statusFilter,
+    onChange: handleStatusFilter
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_MenuItem__WEBPACK_IMPORTED_MODULE_8__["default"], {
+    value: "All"
+  }, "All"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_MenuItem__WEBPACK_IMPORTED_MODULE_8__["default"], {
+    value: "Admin"
+  }, "Admin"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_MenuItem__WEBPACK_IMPORTED_MODULE_8__["default"], {
+    value: "Client"
+  }, "Client"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_MenuItem__WEBPACK_IMPORTED_MODULE_8__["default"], {
+    value: "Partner"
+  }, "Partner")))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Table__WEBPACK_IMPORTED_MODULE_11__["DataTable"], {
+    filtered: filtered,
     handleFetch: handleFetch
   })));
 };
@@ -612,7 +648,7 @@ const DataTable = props => {
     align: "right"
   }, "\u0414\u0430\u0442\u0430 \u0441\u043E\u0437\u0434\u0430\u043D\u0438\u044F"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_TableCell__WEBPACK_IMPORTED_MODULE_6__["default"], {
     align: "right"
-  }, "\u0414\u0430\u0442\u0430 \u043F\u043E\u0441\u043B\u0435\u0434\u043D\u0435\u0433\u043E \u0438\u0437\u043C\u0435\u043D\u0435\u043D\u0438\u044F"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_TableBody__WEBPACK_IMPORTED_MODULE_5__["default"], null, props.storage.map(row => /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Row, {
+  }, "\u0414\u0430\u0442\u0430 \u043F\u043E\u0441\u043B\u0435\u0434\u043D\u0435\u0433\u043E \u0438\u0437\u043C\u0435\u043D\u0435\u043D\u0438\u044F"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_TableBody__WEBPACK_IMPORTED_MODULE_5__["default"], null, props.filtered.map(row => /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Row, {
     key: JSON.parse(row).email,
     row: row,
     handleFetch: props.handleFetch

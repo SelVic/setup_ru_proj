@@ -40,6 +40,10 @@ const SpaComponent = () => {
     const [lastName, updateLastName] = useState("");
     const [patronymic, updatePatronymic] = useState("");
     const [status, updateStatus] = useState("");
+    const [text, updateText] = useState("");
+    const [filtered, updateFiltered] = useState(Object.values(localStorage));
+    const [statusFilter, updateStatusFilter] = useState("All")
+    let searchItem = text.trim().toLowerCase()
     const [user, updateUser] = useState({
         email: "",
         password: "",
@@ -132,6 +136,23 @@ const SpaComponent = () => {
         updateStatus(event.target.value);
     }
 
+    const handleStatusFilter = (event) => {
+        updateStatusFilter(event.target.value);
+    }
+
+    useEffect(() => {
+        if (statusFilter == "All")
+        {
+            let result = storage.filter(user => (JSON.parse(user).phone.includes(searchItem)) || (JSON.parse(user).email.toLowerCase().includes(searchItem)))
+            updateFiltered(result);
+        }
+        else
+        {
+            let result = storage.filter(user => (JSON.parse(user).phone.includes(searchItem)) || (JSON.parse(user).email.toLowerCase().includes(searchItem)) && JSON.parse(user).status == statusFilter)
+            updateFiltered(result)
+        }
+
+    }, [text])
 
     const resetFields = () => {
         updateEmail("");
@@ -181,7 +202,7 @@ const SpaComponent = () => {
                     </div>
                     <div className="ml-20">
                         <FormControl className={classes.formControl}>
-                            <InputLabel id="demo-simple-select-label">Статус</InputLabel>
+                            <InputLabel>Статус</InputLabel>
                             <Select value={status} onChange={handleSelect}>
                                 <MenuItem value="Admin">Admin</MenuItem>
                                 <MenuItem value="Client">Client</MenuItem>
@@ -200,7 +221,20 @@ const SpaComponent = () => {
                 </div>
             </div>
             <div className="mt-50">
-                <DataTable storage={storage} handleFetch={handleFetch}/>
+                <div align="center">
+                    <TextField label="Фильтр" type="text" value = {text} onChange={e => updateText(e.currentTarget.value)} />
+                    <FormControl className={classes.formControl}>
+                            <InputLabel>Статус</InputLabel>
+                            <Select value={statusFilter} onChange={handleStatusFilter}>
+                                <MenuItem value="All">All</MenuItem>
+                                <MenuItem value="Admin">Admin</MenuItem>
+                                <MenuItem value="Client">Client</MenuItem>
+                                <MenuItem value="Partner">Partner</MenuItem>
+                            </Select>
+                    </FormControl>
+                </div>
+
+                <DataTable filtered={filtered} handleFetch={handleFetch}/>
             </div>
         </Fragment>
     )

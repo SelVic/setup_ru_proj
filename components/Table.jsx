@@ -220,7 +220,7 @@ const DataTable = (props) => {
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {props.storage.map((row) => (
+                    {props.filtered.map((row) => (
                         <Row key={JSON.parse(row).email} row={row} handleFetch = {props.handleFetch}/>
                     ))}
                 </TableBody>
