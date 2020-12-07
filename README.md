@@ -4,7 +4,7 @@
 
 ### Установка
 ```
-git pull https://github.com/SelVic/setup_ru_proj
+git clone https://github.com/SelVic/setup_ru_proj
 В корневой папке проекта
 npm install
 node server
